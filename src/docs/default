@@ -1,0 +1,17 @@
+USAGE: meliponto <COMMAND> [OPTIONS...] [ARGS...]
+
+DESCRIPTION: A simple CLI to facilitate punching hours into the ahgora system, it comes with a basic setup for MELI.
+
+COMMANDS:
+    config      Sets up the provided flag information to the config file.
+    get-token   Retrieves a valid JWT token and displays to stdout.
+    single      Punches a single entrance in the ahgora system with the date and time provided by the flags.
+    day         Punches full entrances for the day argument, multiples punches done asynchronously therefore stdout output order may vary.
+    range       Punches full entrances from the start date paramether up to the end date paramether, multiples punches done asynchronously therefore stdout output order may vary. Range will jump weekends and holidays.
+    version     Displays the current version of the app installed.
+
+DEFINITION:
+    date        The input format must always be "d-m-yy".
+    time        The input format must always be "HH:mm".
+
+OBS: Apart from the single punch command, all other punch commands use the defaults from the config file.

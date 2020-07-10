@@ -1,0 +1,10 @@
+USAGE: meliponto single <OPTIONS>
+
+DESCRIPTION: Punches a single entrance in the ahgora system with the date and time provided by the flags.
+
+OPTIONS:
+	--date		dd-mm-yy	The date this punch will register <REQUIRED>
+	--time		HH:mm		The time this punch will register <REQUIRED>
+	--message	string		Message used to justify this punch [OPTIONAL]
+	--token		string		When provided will be used to authenticate instead of prompting for your password [OPTIONAL]
+	--help				Displays the help message for the command

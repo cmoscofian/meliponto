@@ -1,0 +1,8 @@
+USAGE: meliponto day [OPTIONS] <date>
+
+DESCRIPTION: Punches full entrances for the day paramether, multiples punches done asynchronously therefore stdout output order may vary.
+
+OPTIONS:
+	--token		string	When provided will be used to authenticate instead of prompting for your password [OPTIONAL]
+	--on-gard		If present will apply full on-gard punches according to config [OPTIONAL]
+	--help			Displays the help message for the command

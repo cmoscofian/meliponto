@@ -1,0 +1,9 @@
+USAGE: meliponto config <OPTIONS>
+
+DESCRIPTION: Sets up the provided flag information to the config file.
+
+OPTIONS:
+	--re		string	Sets your employee registration within your company on the config file
+	--company	string	Sets your company id number registered within Ahgora into the config file
+	--generate		Generates a brand new config file from scratch <Will override current config file>
+	--help			Displays the help message for the command

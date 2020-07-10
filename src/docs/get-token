@@ -1,0 +1,6 @@
+USAGE: meliponto get-token [OPTIONS]
+
+DESCRIPTION: Retrieves a valid JWT token and displays to stdout this JWT can be used as a value for the --token flag
+
+OPTIONS:
+	--help			Displays the help message for the command

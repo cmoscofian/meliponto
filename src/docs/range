@@ -1,0 +1,7 @@
+USAGE: meliponto range [OPTIONS] <start-date> <end-date>
+
+DESCRIPTION: Punches full entrances from the start date paramether up to the end date paramether, multiples punches done asynchronously therefore stdout output order may vary. Range will jump weekends and holidays.
+
+OPTIONS:
+	--token		string	When provided will be used to authenticate instead of prompting for your password [OPTIONAL]
+    --help			Displays the help message for the command

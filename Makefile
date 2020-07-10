@@ -3,7 +3,7 @@ DOC_PATH=src/docs
 CONFIG_PATH=/usr/local/etc
 BUILD_PATH=bin/meliponto
 
-all: fmt lint vet client build
+all: fmt lint vet clean build
 
 fmt:
 	@echo "Formatting the source code"

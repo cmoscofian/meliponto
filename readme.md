@@ -9,7 +9,7 @@
 
 ```
 ![technology Go](https://img.shields.io/badge/technology-go-blue.svg)
-![tag](https://img.shields.io/github/v/tag/cmoscofian/meliponto?sort=semver)
+![release](https://img.shields.io/github/v/release/cmoscofian/meliponto)
 
 A simple CLI to facilitate punching hours into the ahgora system
 
@@ -198,8 +198,8 @@ This file resides on the folder `/usr/local/etc` and has the following structure
 # **TO-DO's**:
 - Create week command to allow punch a full-week at once
 - Create month command to allow punch a full-month at once
-- Grate gard command to allow punch on-gard specifically
+- Create gard command to allow punch on-gard specifically
 - Allow to pass a path to config file as a flag (flexible)
-_ Delete a punch by ID
+- Delete a punch by ID
 - Approve a closed month
 - Create a functionality to retrieve punches and iteractivelly asks if should delete old punch or skip punching the new or keeping both

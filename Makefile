@@ -23,5 +23,9 @@ clean:
 
 build: clean
 	@echo "### Building the client binary ###"
-
-	go build -o ${BUILD_PATH} -ldflags="-X github.com/cmoscofian/meliponto/src/command.version=${APP_VERSION} -X github.com/cmoscofian/meliponto/src/util.docs=${DOC_PATH} -X github.com/cmoscofian/meliponto/src/context.dirname=${CONFIG_PATH}"
+	go build -o ${BUILD_PATH}\
+		-ldflags="\
+			-X github.com/cmoscofian/meliponto/src/command.version=${APP_VERSION}\
+			-X github.com/cmoscofian/meliponto/src/context.dirname=${CONFIG_PATH}\
+			-X github.com/cmoscofian/meliponto/src/util.docs=${DOC_PATH}\
+		"

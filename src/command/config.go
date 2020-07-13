@@ -34,6 +34,11 @@ func (d *ConfigCommand) Run(ctx *context.Configuration) error {
 		return errors.New(constants.MissingFlagsError)
 	}
 
+	if generate {
+		context.Generate()
+		return nil
+	}
+
 	if userID != "" {
 		if err := ctx.SetUserID(userID); err != nil {
 			return err

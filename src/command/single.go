@@ -90,7 +90,7 @@ func (d *SingleCommand) Run(ctx *context.Configuration) error {
 		select {
 		case response = <-chbs:
 			pr := new(model.PunchResponse)
-			json.Unmarshal(response, pr)
+			_ = json.Unmarshal(response, pr)
 			fmt.Printf("Punch successfull! [id: %s][date: %s][message: %s][state: %s]\n", pr.ID, pr.Date, pr.Message, pr.State)
 		case err = <-cher:
 			return err

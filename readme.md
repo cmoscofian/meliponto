@@ -27,14 +27,14 @@ meliponto config --re {your_employee_registration}
 
 ---
 ## **Basic Usage**
-![default](./.github/default.png)
+![default](./.github/assets/default.png)
 
 ---
 ## **Executable Commands**
 
 
 ## **Setup Configuration Command (*`config`*)**
-![config](./.github/config.png)
+![config](./.github/assets/config.png)
 
 **Example**:
 
@@ -48,7 +48,7 @@ Config file updated successfully!
 
 ---
 ## **Get Token Command (*`get-token`*)**
-![get-token](./.github/get-token.png)
+![get-token](./.github/assets/get-token.png)
 
 ***PS**: You will be prompted for your **password***
 
@@ -64,7 +64,7 @@ $ eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...
 
 ---
 ## **Single Punch Command (*`single`*)**
-![single](./.github/single.png)
+![single](./.github/assets/single.png)
 
 ***PS**: If --token is not provided you will be prompted for your **password***.
 
@@ -80,7 +80,7 @@ Punch successfull! [id: 5f0678b4c8fec13eba7f6502][date: 2018-05-01][message: Fin
 
 ---
 ## **Day Punch Command (`day`)**
-![day](./.github/day.png)
+![day](./.github/assets/day.png)
 
 ***PS**: If --token is not provided you will be prompted for your **password***.
 
@@ -102,7 +102,7 @@ Punch successfull! [id: 5f0687b0d8f5c011517e23f4][date: 2020-01-01][message: Sa√
 
 ---
 ## **Range Punch Command (`range`)**
-![range](./.github/range.png)
+![range](./.github/assets/range.png)
 
 ***PS**: If --token is not provided you will be prompted for your **password***.
 

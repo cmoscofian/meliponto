@@ -13,7 +13,8 @@ fmt:
 
 lint:
 	@echo "### Linting the source code ###"
-	@golint ./...
+	@go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.27.0
+	@golangci-lint run
 
 vet:
 	@echo "### Checking for code issues ###"

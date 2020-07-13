@@ -5,7 +5,7 @@
 - [ ] Hotfix (Fixes an issue that affect users)
 - [ ] Improvement (Improves upon an existing functionality or documentation)
 - [ ] Feature (Creates a new feature)
-- [ ] Release (Packs a latest changes into a new release version)
+- [ ] Release (Packs the latest changes into a new release/ deployable version)
 
 ---
 ## Before you push it are you sure that...

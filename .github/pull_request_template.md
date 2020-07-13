@@ -13,7 +13,7 @@
 - [ ] My change requires a change to the documentation and I updated it accordingly.
 
 ---
-## Now regarding your changes?
+## Now regarding your changes...
 ### What is the current behavior?
 [Currently it...]
 

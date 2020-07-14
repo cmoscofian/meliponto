@@ -1,0 +1,51 @@
+name: Continuous Integration
+
+on: push
+
+jobs:
+    lint:
+        name: Linting...
+        runs-on: ubuntu-latest
+        steps:
+            - name: Setting up go environment...
+              uses: actions/setup-go@v2
+              with:
+                  go-version: 1.14
+
+            - name: Checking out repo...
+              uses: actions/checkout@v2
+
+            - name: Cheking linting rules...
+              uses: golangci/golangci-lint-action@v1.2.1
+              with:
+                  version: v1.27
+
+    vet:
+        name: Vetting...
+        runs-on: ubuntu-latest
+        steps:
+            - name: Setting up go environment...
+              uses: actions/setup-go@v2
+              with:
+                  go-version: 1.14
+
+            - name: Checking out repo...
+              uses: actions/checkout@v2
+
+            - name: Vetting...
+              run: make vet
+
+    test:
+        name: Testing...
+        runs-on: ubuntu-latest
+        steps:
+            - name: Setting up go environment...
+              uses: actions/setup-go@v2
+              with:
+                  go-version: 1.14
+
+            - name: Checking out repo...
+              uses: actions/checkout@v2
+
+            - name: Testing...
+              run: sudo make copy-config && make test

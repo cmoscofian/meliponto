@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/cmoscofian/meliponto/src/command"
@@ -31,7 +32,9 @@ func root(args []string) error {
 
 	for _, cmd := range cmds {
 		if cmd.Name() == option {
-			cmd.Init(os.Args[2:])
+			if err := cmd.Init(os.Args[2:]); err != nil {
+				log.Fatalln(err)
+			}
 			return cmd.Run(ctx)
 		}
 	}

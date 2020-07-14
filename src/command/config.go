@@ -1,9 +1,11 @@
 package command
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/cmoscofian/meliponto/src/context"
+	"github.com/cmoscofian/meliponto/src/util/constants"
 )
 
 type ConfigCommand Command
@@ -28,6 +30,10 @@ func (d *ConfigCommand) Run(ctx *context.Configuration) error {
 		return nil
 	}
 
+	if !generate && userID == "" && companyID == "" {
+		return errors.New(constants.MissingFlagsError)
+	}
+
 	if generate {
 		context.Generate()
 		return nil
@@ -37,14 +43,14 @@ func (d *ConfigCommand) Run(ctx *context.Configuration) error {
 		if err := ctx.SetUserID(userID); err != nil {
 			return err
 		}
-		fmt.Print("Config file updated successfully!")
+		fmt.Print("Config file updated successfully!\n")
 	}
 
 	if companyID != "" {
 		if err := ctx.SetCompanyID(companyID); err != nil {
 			return err
 		}
-		fmt.Print("Config file updated successfully!")
+		fmt.Print("Config file updated successfully!\n")
 	}
 
 	return nil

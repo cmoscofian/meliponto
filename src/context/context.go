@@ -20,7 +20,6 @@ func Create() *Configuration {
 	if err != nil {
 		fmt.Println(constants.CorruptedConfigFileError)
 		Generate()
-		fmt.Fprintln(os.Stderr, constants.NewConfigFileGeneratedError)
 		os.Exit(1)
 	}
 
@@ -28,9 +27,8 @@ func Create() *Configuration {
 
 	err = json.Unmarshal(content, config)
 	if err != nil {
-		fmt.Println(constants.CorruptedConfigFileError)
+		fmt.Println(constants.ParseConfigError)
 		Generate()
-		fmt.Fprintln(os.Stderr, constants.NewConfigFileGeneratedError)
 		os.Exit(1)
 	}
 
@@ -48,7 +46,7 @@ func (c *Configuration) SetUserID(userID string) error {
 }
 
 func (c *Configuration) writeToDisk() error {
-	bs, err := json.Marshal(c)
+	bs, err := json.MarshalIndent(c, "", "\t")
 	if err != nil {
 		return err
 	}
@@ -70,9 +68,12 @@ func Generate() {
 	defer file.Close()
 
 	encoder := json.NewEncoder(file)
+	encoder.SetIndent("", "\t")
 	if err := encoder.Encode(c); err != nil {
 		log.Fatalln(err)
 	}
+
+	fmt.Fprintln(os.Stderr, constants.NewConfigFileGeneratedError)
 }
 
 func createDefaultConfig() Configuration {

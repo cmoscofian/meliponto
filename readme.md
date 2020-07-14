@@ -9,7 +9,7 @@
 
 ```
 ![technology Go](https://img.shields.io/badge/technology-go-blue.svg)
-![tag](https://img.shields.io/github/v/tag/cmoscofian/meliponto?sort=semver)
+![release](https://img.shields.io/github/v/release/cmoscofian/meliponto)
 
 A simple CLI to facilitate punching hours into the ahgora system
 
@@ -27,14 +27,14 @@ meliponto config --re {your_employee_registration}
 
 ---
 ## **Basic Usage**
-![default](./.github/default.png)
+![default](./.github/assets/default.png)
 
 ---
 ## **Executable Commands**
 
 
 ## **Setup Configuration Command (*`config`*)**
-![config](./.github/config.png)
+![config](./.github/assets/config.png)
 
 **Example**:
 
@@ -48,7 +48,7 @@ Config file updated successfully!
 
 ---
 ## **Get Token Command (*`get-token`*)**
-![get-token](./.github/get-token.png)
+![get-token](./.github/assets/get-token.png)
 
 ***PS**: You will be prompted for your **password***
 
@@ -64,7 +64,7 @@ $ eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...
 
 ---
 ## **Single Punch Command (*`single`*)**
-![single](./.github/single.png)
+![single](./.github/assets/single.png)
 
 ***PS**: If --token is not provided you will be prompted for your **password***.
 
@@ -80,7 +80,7 @@ Punch successfull! [id: 5f0678b4c8fec13eba7f6502][date: 2018-05-01][message: Fin
 
 ---
 ## **Day Punch Command (`day`)**
-![day](./.github/day.png)
+![day](./.github/assets/day.png)
 
 ***PS**: If --token is not provided you will be prompted for your **password***.
 
@@ -102,7 +102,7 @@ Punch successfull! [id: 5f0687b0d8f5c011517e23f4][date: 2020-01-01][message: Sa√
 
 ---
 ## **Range Punch Command (`range`)**
-![range](./.github/range.png)
+![range](./.github/assets/range.png)
 
 ***PS**: If --token is not provided you will be prompted for your **password***.
 
@@ -196,10 +196,10 @@ This file resides on the folder `/usr/local/etc` and has the following structure
 ```
 
 # **TO-DO's**:
-- Create week command to allow punch a full-week at once
-- Create month command to allow punch a full-month at once
-- Grate gard command to allow punch on-gard specifically
-- Allow to pass a path to config file as a flag (flexible)
-_ Delete a punch by ID
-- Approve a closed month
-- Create a functionality to retrieve punches and iteractivelly asks if should delete old punch or skip punching the new or keeping both
+1. Create a functionality to retrieve punches and iteractivelly asks if should delete old punch or skip punching the new or keeping both
+1. Create gard command to allow punch on-gard specifically
+1. Delete a punch by ID
+1. Allow to pass a path to config file as a flag (flexible)
+1. Approve a closed month
+1. Create week command to allow punch a full-week at once
+1. Create month command to allow punch a full-month at once

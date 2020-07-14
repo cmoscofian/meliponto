@@ -14,6 +14,7 @@ type Commander interface {
 	Name() string
 }
 
+// nolint
 type Command struct {
 	fs *flag.FlagSet
 }
@@ -29,12 +30,8 @@ var token string
 var gard bool
 
 var message string
-var begin string
-var end string
 var ptime string
 var date string
-var week int
-var month int
 var help bool
 
 var onGard string

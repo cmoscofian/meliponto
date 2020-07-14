@@ -196,10 +196,10 @@ This file resides on the folder `/usr/local/etc` and has the following structure
 ```
 
 # **TO-DO's**:
-- Create week command to allow punch a full-week at once
-- Create month command to allow punch a full-month at once
-- Create gard command to allow punch on-gard specifically
-- Allow to pass a path to config file as a flag (flexible)
-- Delete a punch by ID
-- Approve a closed month
-- Create a functionality to retrieve punches and iteractivelly asks if should delete old punch or skip punching the new or keeping both
+1. Create a functionality to retrieve punches and iteractivelly asks if should delete old punch or skip punching the new or keeping both
+1. Create gard command to allow punch on-gard specifically
+1. Delete a punch by ID
+1. Allow to pass a path to config file as a flag (flexible)
+1. Approve a closed month
+1. Create week command to allow punch a full-week at once
+1. Create month command to allow punch a full-month at once

@@ -3,31 +3,40 @@ DOC_PATH=src/docs
 CONFIG_PATH=/usr/local/etc
 BUILD_PATH=bin/meliponto
 
-all: fmt lint install
-dev: fmt lint vet clean
-stage: dev test
-
+.PHONY: fmt
 fmt:
 	@echo "### Formatting the source code ###"
 	@go fmt ./...
 
+.PHONY: lint
 lint:
 	@echo "### Linting the source code ###"
-	@go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.27.0
 	@golangci-lint run
 
+.PHONY: vet
 vet:
 	@echo "### Checking for code issues ###"
 	@go vet ./...
 
+.PHONY: test
 test:
 	@echo "### Testing the app ###"
 	@go test ./...
 
+.PHONY: clean
 clean:
 	@echo "### Removing binaries ###"
 	@rm -rf bin
 
+.PHONY: pre-commit
+pre-commit: fmt lint vet test clean
+
+.PHONY: copy-config
+copy-config:
+	@echo "### Copy the config file onto the ${CONFIG_PATH} ###"
+	@cp meliponto.json ${CONFIG_PATH}/meliponto.json
+
+.PHONY: build
 build: clean
 	@echo "### Building the binary ###"
 	@go build -o ${BUILD_PATH}\
@@ -37,6 +46,5 @@ build: clean
 			-X github.com/cmoscofian/meliponto/src/util.docs=${DOC_PATH}\
 		"
 
-install: vet build
-	@echo "### Copy the config file onto the ${CONFIG_PATH} ###"
-	@cp meliponto.json ${CONFIG_PATH}/meliponto.json
+.PHONY: install
+install: copy-config build

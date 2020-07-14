@@ -1,0 +1,33 @@
+name: Continuous Deployment
+
+on:
+    repository_dispatch:
+        types: tag-created
+
+jobs:
+    release:
+        name: Releasing...
+        runs-on: ubuntu-latest
+        steps:
+            - name: Setting up go environment...
+              uses: actions/setup-go@v2
+              with:
+                  go-version: 1.14
+
+            - name: Checking out repo...
+              uses: actions/checkout@v2
+
+            - name: Releasing...
+              uses: actions/create-release@v1
+              id: create_release
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                tag_name: ${{ github.event.client_payload.new_tag }}
+                release_name: Release ${{ github.event.client_payload.new_tag }}
+                body: |
+                    Meliponto new release:
+                      - New version: ${{ github.event.client_payload.new_tag }}
+                      - Old version: ${{ github.event.client_payload.tag }}
+                draft: false
+                prerelease: false

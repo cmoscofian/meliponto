@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/cmoscofian/meliponto/src/context"
+	"github.com/cmoscofian/meliponto/src/handlers"
 	"github.com/cmoscofian/meliponto/src/model"
 	"github.com/cmoscofian/meliponto/src/service"
 	"github.com/cmoscofian/meliponto/src/util"
@@ -33,10 +34,8 @@ func (d *RangeCommand) Run(ctx *context.Configuration) error {
 	if d.fs.Parsed() {
 		chbs := make(chan []byte)
 		cher := make(chan error)
-		var response []byte
 		var err error
 		var bodys [][]byte
-		var login model.LoginResponse
 		var gstart time.Time
 		var gend time.Time
 		var grange int
@@ -59,7 +58,7 @@ func (d *RangeCommand) Run(ctx *context.Configuration) error {
 			withGard = true
 		}
 
-		start, _, drange, err := util.RangeBetweenDatesInDays(d.fs.Arg(0), d.fs.Arg(1))
+		start, end, drange, err := util.RangeBetweenDatesInDays(d.fs.Arg(0), d.fs.Arg(1))
 		if err != nil {
 			return err
 		}
@@ -72,32 +71,18 @@ func (d *RangeCommand) Run(ctx *context.Configuration) error {
 		}
 
 		if token == "" {
-			go service.Login(ctx, chbs, cher)
-
-			select {
-			case response = <-chbs:
-				err := json.Unmarshal(response, &login)
-				if err != nil {
-					return err
-				}
-
-				if login.Status == model.SuccessStatus {
-					token = login.Token
-				} else {
-					if login.Message != "" {
-						return errors.New(login.Message)
-					}
-					return errors.New(constants.InvalidLoginError)
-				}
-
-			case err = <-cher:
+			token, err = handlers.HandleLogin(ctx, chbs, cher)
+			if err != nil {
 				return err
 			}
 		}
 
+		if err := handlers.HandleFetch(token, start, end, chbs, cher); err != nil {
+			return err
+		}
+
 		for i := 0; i < drange; i++ {
-			err = dailyCheck(ctx, start, &bodys, false)
-			if err != nil {
+			if err := dailyCheck(ctx, start, &bodys, false); err != nil {
 				return err
 			}
 
@@ -107,25 +92,25 @@ func (d *RangeCommand) Run(ctx *context.Configuration) error {
 		if withGard {
 			gdate := gstart
 			for i := 0; i < grange; i++ {
-				err := dailyCheckOnGard(ctx, gdate, gstart, gend, &bodys)
-				if err != nil {
+				if err := dailyCheckOnGard(ctx, gdate, gstart, gend, &bodys); err != nil {
 					return err
 				}
+
 				gdate = gdate.Add(24 * time.Hour)
 			}
 		}
 
 		for _, b := range bodys {
-			go service.Punch(token, b, chbs, cher)
+			go service.PostPunch(token, b, chbs, cher)
 		}
 
 		for range bodys {
 			select {
-			case response = <-chbs:
+			case response := <-chbs:
 				pr := new(model.PunchResponse)
 				_ = json.Unmarshal(response, pr)
-				fmt.Printf("Punch successfull! [id: %s][date: %s][message: %s][state: %s]\n", pr.ID, pr.Date, pr.Message, pr.State)
-			case err = <-cher:
+				fmt.Printf(constants.PunchSuccessfull, pr.ID, pr.Date, pr.Message, pr.State)
+			case err := <-cher:
 				return err
 			}
 		}

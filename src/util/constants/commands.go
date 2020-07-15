@@ -10,6 +10,21 @@ const (
 	VersionKey  string = "version"
 )
 
+const (
+	HelpFlag  string = "help"
+	TokenFlag string = "token"
+
+	REFlag       string = "re"
+	CompanyFlag  string = "company"
+	GenerateFlag string = "generate"
+
+	MessageFlag string = "message"
+	TimeFlag    string = "time"
+	DateFlag    string = "date"
+	OnGardFlag  string = "on-gard"
+	OffGardFlag string = "off-gard"
+)
+
 // Usage messages for the flags defined
 const (
 	ReUsageMessage       string = "Sets your employee registration within your company on the config file"

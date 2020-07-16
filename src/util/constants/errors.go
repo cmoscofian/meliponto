@@ -20,4 +20,5 @@ const (
 	ParseConfigError            string = "Unable to parse the config, for your config file"
 	PastDateError               string = "Date provided must be in the past"
 	PastDateTimeError           string = "Date and Time provided must be in the past"
+	RestServiceError            string = "%s (%d) - Message: %s"
 )

@@ -1,0 +1,29 @@
+name: Tag
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    bump_version:
+        name: Tagging...
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checking out repo...
+              uses: actions/checkout@v2
+
+            - name: Bumping new tag...
+              id: new_version
+              uses: anothrNick/github-tag-action@1.17.2
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  DEFAULT_BUMP: patch
+                  WITH_V: true
+
+            - name: Dispatching New Tag...
+              uses: peter-evans/repository-dispatch@v1
+              with:
+                  token: ${{ secrets.REPO_ACCESS_TOKEN }}
+                  event-type: tag-created
+                  client-payload: ${{ toJson(steps.new_version.outputs) }}

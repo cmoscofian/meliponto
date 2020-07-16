@@ -74,7 +74,7 @@ func (d *SingleCommand) Run(ctx *context.Configuration) error {
 		case response = <-chbs:
 			pr := new(model.PunchResponse)
 			_ = json.Unmarshal(response, pr)
-			fmt.Printf(constants.PunchSuccessfull, pr.ID, pr.Date, pr.Message, pr.State)
+			fmt.Printf(constants.PunchSuccessful, pr.ID, pr.Date, pr.Message, pr.State)
 		case err = <-cher:
 			return err
 		}

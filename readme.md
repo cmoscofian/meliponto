@@ -89,7 +89,16 @@ Punch successfull! [id: 5f0678b4c8fec13eba7f6502][date: 2018-05-01][message: Fin
 $ meliponto day --on-gard 01-01-20
 Enter your password:
 ```
-Response:
+
+If there are previous punches within the same period as the user is requesting, it will warn and asks for the user to decide whether or not to make new punches.
+
+```
+[WARNING] You already have 4 punches in this period! Would you like to continue? (y/N)
+```
+
+Defaults to **`NO`**, so if the user presses `return` the process will stop here. Only with **`Y`** it will proceed, therefore is up to an user intentional interaction to proceed.
+
+Response when proceeding:
 ```
 Punch successfull! [id: 5f0687b0826c2a66695abbd2][date: 2020-01-01][message: Guardia][state: PENDENTE]
 Punch successfull! [id: 5f0687b0a3f77153f01746e7][date: 2020-01-01][message: Início de jornada][state: PENDENTE]
@@ -111,7 +120,16 @@ Punch successfull! [id: 5f0687b0d8f5c011517e23f4][date: 2020-01-01][message: Sa�
 $ meliponto range --on-gard 08-06-20 --off-gard 15-06-20 01-06-20 30-06-20
 Enter your password:
 ```
-Response:
+
+If there are previous punches within the same period as the user is requesting, it will warn and asks for the user to decide whether or not to make new punches.
+
+```
+[WARNING] You already have 4 punches in this period! Would you like to continue? (y/N)
+```
+
+Defaults to **`NO`**, so if the user presses `return` the process will stop here. Only with **`Y`** it will proceed, therefore is up to an user intentional interaction to proceed.
+
+Response when proceeding:
 ```
 Punch successfull! [id: 5f0687b0826c2a66695abbd2][date: 2020-06-01][message: Guardia][state: PENDENTE]
 Punch successfull! [id: 5f0687b0a3f77153f01746e7][date: 2020-06-01][message: Início de jornada][state: PENDENTE]

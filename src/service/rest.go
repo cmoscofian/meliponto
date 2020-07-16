@@ -13,11 +13,10 @@ import (
 )
 
 var client *http.Client
-var timeout time.Duration
 
 func init() {
 	client = &http.Client{
-		Timeout: timeout,
+		Timeout: time.Second * 30,
 	}
 }
 
@@ -65,6 +64,10 @@ func Get(uri string, headers map[string]string, chbs chan<- []byte, cher chan<- 
 	if err != nil {
 		cher <- err
 		return
+	}
+
+	for k, v := range headers {
+		req.Header.Set(k, v)
 	}
 
 	resp, err := client.Do(req)

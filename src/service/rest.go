@@ -2,11 +2,13 @@ package service
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"time"
 
+	"github.com/cmoscofian/meliponto/src/model"
 	"github.com/cmoscofian/meliponto/src/util/constants"
 )
 
@@ -44,6 +46,16 @@ func Post(uri string, headers map[string]string, body []byte, chbs chan<- []byte
 		return
 	}
 
+	if resp.StatusCode/100 != 2 {
+		er := new(model.ErrorResponse)
+		message := string(bs)
+		if err := json.Unmarshal(bs, er); err == nil {
+			message = er.Message
+		}
+		cher <- fmt.Errorf(constants.RestServiceError, http.StatusText(resp.StatusCode), resp.StatusCode, message)
+		return
+	}
+
 	chbs <- bs
 }
 
@@ -68,6 +80,16 @@ func Get(uri string, headers map[string]string, chbs chan<- []byte, cher chan<- 
 	bs, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		cher <- err
+		return
+	}
+
+	if resp.StatusCode/100 != 2 {
+		er := new(model.ErrorResponse)
+		message := string(bs)
+		if err := json.Unmarshal(bs, er); err == nil {
+			message = er.Message
+		}
+		cher <- fmt.Errorf(constants.RestServiceError, http.StatusText(resp.StatusCode), resp.StatusCode, message)
 		return
 	}
 

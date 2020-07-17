@@ -27,13 +27,24 @@ type PunchRequest struct {
 	Allowance     *AllowanceField `json:"abono,omitempty"`
 }
 
+type ResponseField struct {
+	Message  string `json:"texto"`
+	DateTime string `json:"datahora"`
+}
+
 type PunchResponse struct {
 	ID        string          `json:"id"`
 	Date      string          `json:"referencia"`
-	Type      string          `json:"tipo"`
+	Type      PunchType       `json:"tipo"`
 	Message   string          `json:"mensagem"`
 	DateTime  string          `json:"datahora"`
 	State     string          `json:"estado"`
 	AddPunch  *PunchField     `json:"addPunch,omitempty"`
 	Allowance *AllowanceField `json:"abono,omitempty"`
+	Response  *ResponseField  `json:"resposta,omitempty"`
+}
+
+type Query struct {
+	Total int              `json:"total"`
+	Data  []*PunchResponse `json:"data"`
 }

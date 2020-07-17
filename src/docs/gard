@@ -1,0 +1,8 @@
+USAGE: meliponto gard [OPTIONS] <start-date> [end-date]
+
+DESCRIPTION: Punches gard entrances from the start date paramether up to the end date paramether (included), multiples punches done asynchronously therefore stdout output order may vary. Range will apply begin and end punches by default unless --not-full is provided. When wanting to punch a single day provide only the start-date paramether (for single day gard punch is always considered full day - NOT BEGIN NOR FINISH).
+
+OPTIONS:
+	--token     string  When provided will be used to authenticate instead of prompting for your password [OPTIONAL]
+	--not-full	    If present will apply NOT full gard punches (do NOT apply BEGIN on first day and FINISH on last day) [OPTIONAL]
+	--help              Displays the help message for the command

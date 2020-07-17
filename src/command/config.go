@@ -43,14 +43,14 @@ func (d *ConfigCommand) Run(ctx *context.Configuration) error {
 		if err := ctx.SetUserID(userID); err != nil {
 			return err
 		}
-		fmt.Print("Config file updated successfully!\n")
+		fmt.Print(constants.ConfigUpdatedSuccessful)
 	}
 
 	if companyID != "" {
 		if err := ctx.SetCompanyID(companyID); err != nil {
 			return err
 		}
-		fmt.Print("Config file updated successfully!\n")
+		fmt.Print(constants.ConfigUpdatedSuccessful)
 	}
 
 	return nil

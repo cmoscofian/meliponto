@@ -4,10 +4,28 @@ package constants
 const (
 	ConfigKey   string = "config"
 	GetTokenKey string = "get-token"
+	GardKey     string = "gard"
 	SingleKey   string = "single"
 	DayKey      string = "day"
 	RangeKey    string = "range"
 	VersionKey  string = "version"
+)
+
+const (
+	HelpFlag  string = "help"
+	TokenFlag string = "token"
+
+	REFlag       string = "re"
+	CompanyFlag  string = "company"
+	GenerateFlag string = "generate"
+
+	NotFullGardFlag string = "not-full"
+
+	MessageFlag string = "message"
+	TimeFlag    string = "time"
+	DateFlag    string = "date"
+	OnGardFlag  string = "on-gard"
+	OffGardFlag string = "off-gard"
 )
 
 // Usage messages for the flags defined
@@ -23,4 +41,5 @@ const (
 	OnGardUsageMessage   string = "Date of which on-gard starts (must be provided with --off-gard) [OPTIONAL]"
 	OffGardUsageMessage  string = "Date of which on-gard ends (must be provided with --on-gard) [OPTIONAL]"
 	HelpUsageMessage     string = "Displays the help message for the command"
+	FullGardUsageMessage string = "If present will apply full gard punches (from beginning to end) [OPTIONAL]"
 )

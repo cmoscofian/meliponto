@@ -29,7 +29,6 @@ func (d *GetTokenCommand) Run(ctx *context.Configuration) error {
 	if d.fs.Parsed() {
 		chbs := make(chan []byte)
 		cher := make(chan error)
-		var err error
 
 		if help {
 			d.fs.Usage()

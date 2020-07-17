@@ -34,8 +34,6 @@ func (d *SingleCommand) Run(ctx *context.Configuration) error {
 	if d.fs.Parsed() {
 		chbs := make(chan []byte)
 		cher := make(chan error)
-		var response []byte
-		var err error
 
 		if help {
 			d.fs.Usage()
@@ -71,11 +69,11 @@ func (d *SingleCommand) Run(ctx *context.Configuration) error {
 		go service.PostPunch(token, body, chbs, cher)
 
 		select {
-		case response = <-chbs:
+		case response := <-chbs:
 			pr := new(model.PunchResponse)
 			_ = json.Unmarshal(response, pr)
 			fmt.Printf(constants.PunchSuccessful, pr.ID, pr.Date, pr.Message, pr.State)
-		case err = <-cher:
+		case err := <-cher:
 			return err
 		}
 

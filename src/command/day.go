@@ -33,8 +33,6 @@ func (d *DayCommand) Run(ctx *context.Configuration) error {
 	if d.fs.Parsed() {
 		chbs := make(chan []byte)
 		cher := make(chan error)
-		var response []byte
-		var err error
 		var bodys [][]byte
 
 		if help {
@@ -61,7 +59,7 @@ func (d *DayCommand) Run(ctx *context.Configuration) error {
 			return err
 		}
 
-		if err := dailyCheck(ctx, day, &bodys, gard); err != nil {
+		if err := handlers.HandlePunch(ctx, day, &bodys, gard); err != nil {
 			return err
 		}
 
@@ -71,11 +69,11 @@ func (d *DayCommand) Run(ctx *context.Configuration) error {
 
 		for range bodys {
 			select {
-			case response = <-chbs:
+			case response := <-chbs:
 				pr := new(model.PunchResponse)
 				_ = json.Unmarshal(response, pr)
 				fmt.Printf(constants.PunchSuccessful, pr.ID, pr.Date, pr.Message, pr.State)
-			case err = <-cher:
+			case err := <-cher:
 				return err
 			}
 		}

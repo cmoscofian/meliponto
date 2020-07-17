@@ -27,14 +27,25 @@ meliponto config --re {your_employee_registration}
 
 ---
 ## **Basic Usage**
-![default](./.github/assets/default.png)
+![default](./.github/assets/default.svg)
+## Commands:
+### _General_:
+- [`config`](#setup-configuration-command-config)
+- [`get-token`](#get-token-command-get-token)
+- [`version`](#version-command-version)
+
+### _Regular punches_:
+- [`single`](#single-punch-command-single)
+- [`day`](#day-punch-command-day)
+- [`range`](#range-punch-command-range)
+
+### _Gard commands_:
+- [`gard`](#gard-punch-command-gard)
 
 ---
-## **Executable Commands**
-
-
-## **Setup Configuration Command** (*`config`*)
-![config](./.github/assets/config.png)
+## _**General Commands**_
+### **Setup Configuration Command** (*`config`*)
+![config](./.github/assets/config.svg)
 
 **Example**:
 
@@ -48,8 +59,8 @@ Config file updated successfully!
 ```
 
 ---
-## **Get Token Command** (*`get-token`*)
-![get-token](./.github/assets/get-token.png)
+### **Get Token Command** (*`get-token`*)
+![get-token](./.github/assets/get-token.svg)
 
 ***PS**: You will be prompted for your **password***
 
@@ -65,8 +76,23 @@ $ eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...
 ```
 
 ---
-## **Single Punch Command** (*`single`*)
-![single](./.github/assets/single.png)
+### **Version Command** (*`version`*)
+Displays the current installed version of meliponto.
+
+**Example**:
+```
+$ meliponto version
+```
+
+**Response**:
+```
+$ meliponto version vX.X.X
+```
+
+---
+## **Regular Punches Commands**
+### **Single Punch Command** (*`single`*)
+![single](./.github/assets/single.svg)
 
 ***PS**: If --token is not provided you will be prompted for your **password***.
 
@@ -82,8 +108,8 @@ Punch successfull! [id: 5f0678b4c8fec13eba7f6502][date: 2018-05-01][message: Fin
 ```
 
 ---
-## **Day Punch Command** (`day`)
-![day](./.github/assets/day.png)
+### **Day Punch Command** (`day`)
+![day](./.github/assets/day.svg)
 
 ***PS**: If --token is not provided you will be prompted for your **password***.
 
@@ -113,8 +139,8 @@ Punch successful! [id: 5f0687b0d8f5c011517e23f4][date: 2020-01-01][message: Saí
 ```
 
 ---
-## **Range Punch Command** (`range`)
-![range](./.github/assets/range.png)
+### **Range Punch Command** (`range`)
+![range](./.github/assets/range.svg)
 
 ***PS**: If --token is not provided you will be prompted for your **password***.
 
@@ -141,6 +167,11 @@ Punch successful! [id: 5f0687b0a3f77153f01746e7][date: 2020-06-01][message: Iní
 ...
 Punch successful! [id: 5f0687b0d8f5c011517e23f4][date: 2020-06-30][message: Saída para almoço][state: PENDENTE]
 ```
+
+---
+## **Gard Punch Commands**
+### **Gard Punch Command** (`gard`)
+![gard](./.github/assets/gard.svg)
 
 ---
 ## **Config file** - `meliponto.json`
@@ -211,17 +242,17 @@ This file resides on the folder `/usr/local/etc` and has the following structure
         }
     },
     "holidays": [
-        "string <dd-mm-yy>"
+        "string <d-m-yy>"
     ]
 }
 ```
 
 # **TO-DO's**:
-[x] ~~Create a functionality to retrieve punches~~
-[ ] Create gard command to allow punch on-gard specifically
-[ ] Delete a punch by ID
-[ ] Iteractivelly asks if should delete old punch or skip punching the new or keeping both
-[ ] Allow to pass a path to config file as a flag (flexible)
-[ ] Approve a closed month
-[ ] Create week command to allow punch a full-week at once
-[ ] Create month command to allow punch a full-month at once
+- [x] ~~Create a functionality to retrieve punches~~
+- [x] ~~Create gard command to allow punch on-gard specifically~~
+- [ ] Delete a punch by ID
+- [ ] Iteractivelly asks if should delete old punch or skip punching the new or keeping both
+- [ ] Allow to pass a path to config file as a flag (flexible)
+- [ ] Approve a closed month
+- [ ] Create week command to allow punch a full-week at once
+- [ ] Create month command to allow punch a full-month at once

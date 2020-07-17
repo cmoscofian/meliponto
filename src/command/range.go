@@ -34,7 +34,6 @@ func (d *RangeCommand) Run(ctx *context.Configuration) error {
 	if d.fs.Parsed() {
 		chbs := make(chan []byte)
 		cher := make(chan error)
-		var err error
 		var bodys [][]byte
 		var gstart time.Time
 		var gend time.Time
@@ -82,7 +81,7 @@ func (d *RangeCommand) Run(ctx *context.Configuration) error {
 		}
 
 		for i := 0; i < drange; i++ {
-			if err := dailyCheck(ctx, start, &bodys, false); err != nil {
+			if err := handlers.HandlePunch(ctx, start, &bodys, false); err != nil {
 				return err
 			}
 
@@ -92,7 +91,7 @@ func (d *RangeCommand) Run(ctx *context.Configuration) error {
 		if withGard {
 			gdate := gstart
 			for i := 0; i < grange; i++ {
-				if err := dailyCheckOnGard(ctx, gdate, gstart, gend, &bodys); err != nil {
+				if err := handlers.HandleOnGardPunch(ctx, true, gdate, gstart, gend, &bodys); err != nil {
 					return err
 				}
 

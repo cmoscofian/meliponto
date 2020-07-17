@@ -1,0 +1,82 @@
+package handlers
+
+import (
+	"time"
+
+	"github.com/cmoscofian/meliponto/src/context"
+	"github.com/cmoscofian/meliponto/src/usecase"
+	"github.com/cmoscofian/meliponto/src/util"
+)
+
+func HandlePunch(ctx *context.Configuration, day time.Time, bodys *[][]byte, isOnGard bool) error {
+	if util.IsRegularDay(day) {
+		wsBody, err := usecase.NewWorkStart(ctx, day)
+		if err != nil {
+			return err
+		}
+
+		lsBody, err := usecase.NewLunchStart(ctx, day)
+		if err != nil {
+			return err
+		}
+
+		leBody, err := usecase.NewLunchEnd(ctx, day)
+		if err != nil {
+			return err
+		}
+
+		weBody, err := usecase.NewWorkEnd(ctx, day)
+		if err != nil {
+			return err
+		}
+
+		*bodys = append(*bodys, wsBody)
+		*bodys = append(*bodys, lsBody)
+		*bodys = append(*bodys, leBody)
+		*bodys = append(*bodys, weBody)
+	}
+
+	if isOnGard {
+		return HandleOnGardPunch(ctx, false, day, day, day, bodys)
+	}
+
+	return nil
+}
+
+func HandleOnGardPunch(ctx *context.Configuration, isFull bool, day, start, end time.Time, bodys *[][]byte) error {
+	hours := getGardHoursFromContext(ctx, isFull, day, start, end)
+	for _, h := range hours {
+		body, err := usecase.NewOnGard(ctx, day, h.Start, h.End)
+		if err != nil {
+			return err
+		}
+
+		*bodys = append(*bodys, body)
+	}
+
+	return nil
+}
+
+func getGardHoursFromContext(ctx *context.Configuration, isFull bool, day, start, end time.Time) []context.GardFieldHoursRange {
+	if util.IsSaturday(day) {
+		return ctx.Gard.Hours.Saturday
+	}
+
+	if util.IsSunday(day) {
+		return ctx.Gard.Hours.Sunday
+	}
+
+	if util.IsWeekHoliday(day) {
+		return ctx.Gard.Hours.Holiday
+	}
+
+	if isFull && util.IsSameDay(day, start) {
+		return ctx.Gard.Hours.Begin
+	}
+
+	if isFull && util.IsSameDay(day, end) {
+		return ctx.Gard.Hours.Finish
+	}
+
+	return ctx.Gard.Hours.Weekday
+}

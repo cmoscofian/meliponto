@@ -1,6 +1,6 @@
 package constants
 
-// Define command keys
+// Define all command keys
 const (
 	ConfigKey   string = "config"
 	GetTokenKey string = "get-token"
@@ -11,6 +11,7 @@ const (
 	VersionKey  string = "version"
 )
 
+// Define all command flags
 const (
 	HelpFlag  string = "help"
 	TokenFlag string = "token"
@@ -28,7 +29,7 @@ const (
 	OffGardFlag string = "off-gard"
 )
 
-// Usage messages for the flags defined
+// Define all command usage messages
 const (
 	ReUsageMessage       string = "Sets your employee registration within your company on the config file"
 	CompanyUsageMessage  string = "Sets your company id number registered within Ahgora into the config file"

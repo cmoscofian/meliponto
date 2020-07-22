@@ -8,8 +8,9 @@
 |_|   |_||_______||_______||___||___|    |_______||_|  |__|  |___|  |_______|
 
 ```
-![technology Go](https://img.shields.io/badge/technology-go-blue.svg)
+![technology-go](https://img.shields.io/badge/technology-go-blue.svg)
 ![release](https://img.shields.io/github/v/release/cmoscofian/meliponto)
+![go-report-card](https://goreportcard.com/badge/github.com/cmoscofian/meliponto)
 
 A simple CLI to facilitate punching hours into the ahgora system
 

@@ -13,22 +13,31 @@ import (
 	"github.com/cmoscofian/meliponto/src/util/constants"
 )
 
+// DayCommand is the implementation of the `day` command.
+// A punch command for handling full day punches based
+// on a valid context config file.
 type DayCommand Command
 
+// NewDayCommand returns a new DayCommand pointer setting up
+// it's valid flagset.
 func NewDayCommand() *DayCommand {
 	return &DayCommand{
 		fs: dayFlagSet,
 	}
 }
 
+// Name return the string name set for flagset command.
 func (d *DayCommand) Name() string {
 	return d.fs.Name()
 }
 
+// Init parses all the valid flags of the command.
 func (d *DayCommand) Init(args []string) error {
 	return d.fs.Parse(args)
 }
 
+// Run is responsible for the logic implementation of the command given a valid
+// configuration context.
 func (d *DayCommand) Run(ctx *context.Configuration) error {
 	if d.fs.Parsed() {
 		chbs := make(chan []byte)

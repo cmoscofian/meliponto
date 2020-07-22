@@ -8,15 +8,17 @@ import (
 	"github.com/cmoscofian/meliponto/src/util/constants"
 )
 
+// Commander is the interface that implements every possible command.
 type Commander interface {
 	Init(args []string) error
 	Run(ctx *context.Configuration) error
 	Name() string
 }
 
-// nolint
+// Command is a struct type that implements every Commander.
+// It has a single field fs (FlagSet) responsible for all valid flags to this commmand
 type Command struct {
-	fs *flag.FlagSet
+	fs *flag.FlagSet // nolint
 }
 
 var configFlagSet *flag.FlagSet

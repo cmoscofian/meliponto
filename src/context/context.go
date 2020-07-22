@@ -15,6 +15,10 @@ var dirname string = path.Join("/", "usr", "local", "etc")
 var filename string = "meliponto.json"
 var defaultPath string = path.Join(dirname, filename)
 
+// Create returns a pointer to a valid configuration
+// based upon a valid config file, if unable or corrupited
+// it will generate a new config file based on a default and
+// exit with status 1.
 func Create() *Configuration {
 	content, err := ioutil.ReadFile(defaultPath)
 	if err != nil {
@@ -35,11 +39,15 @@ func Create() *Configuration {
 	return config
 }
 
+// SetCompanyID updates the company_id field from the config file
+// based upon the companyID string argument provided.
 func (c *Configuration) SetCompanyID(companyID string) error {
 	c.CompanyID = companyID
 	return c.writeToDisk()
 }
 
+// SetUserID updates the user_id field from the config file
+// based upon the userID string argument provided.
 func (c *Configuration) SetUserID(userID string) error {
 	c.UserID = userID
 	return c.writeToDisk()
@@ -58,6 +66,9 @@ func (c *Configuration) writeToDisk() error {
 	return nil
 }
 
+// Generate creates a brand new config file from scratch
+// based on the default values set on createDefaultConfig.
+// [Warning]: It will override any existing config files.
 func Generate() {
 	c := createDefaultConfig()
 

@@ -8,6 +8,8 @@ import (
 	"github.com/cmoscofian/meliponto/src/util"
 )
 
+// HandlePunch is responsible for creating evey UC regular punch body and optionally
+// UC gard punch bodies. After creating the UC's it append it to the pointer of []byte provided.
 func HandlePunch(ctx *context.Configuration, day time.Time, bodys *[][]byte, isOnGard bool) error {
 	if util.IsRegularDay(day) {
 		wsBody, err := usecase.NewWorkStart(ctx, day)
@@ -43,6 +45,7 @@ func HandlePunch(ctx *context.Configuration, day time.Time, bodys *[][]byte, isO
 	return nil
 }
 
+// HandleOnGardPunch is responsible for creating evey UC gard punch bodies. After creating the UC's it append it to the pointer of []byte provided.
 func HandleOnGardPunch(ctx *context.Configuration, isFull bool, day, start, end time.Time, bodys *[][]byte) error {
 	hours := getGardHoursFromContext(ctx, isFull, day, start, end)
 	for _, h := range hours {

@@ -20,6 +20,9 @@ func init() {
 	}
 }
 
+// Post is the default implementation of a POST Request based on a default client and
+// given valid uri, headers and body.
+// It communicates with all the other sytems via channels ([]byte channel and error channel)
 func Post(uri string, headers map[string]string, body []byte, chbs chan<- []byte, cher chan<- error) {
 	req, err := http.NewRequest(http.MethodPost, fmt.Sprintf("%s%s", constants.BaseURI, uri), bytes.NewBuffer(body))
 	if err != nil {
@@ -59,6 +62,9 @@ func Post(uri string, headers map[string]string, body []byte, chbs chan<- []byte
 	chbs <- bs
 }
 
+// Get is the default implementation of a GET Request based on a default client and
+// given valid uri and headers.
+// It communicates with all the other sytems via channels ([]byte channel and error channel)
 func Get(uri string, headers map[string]string, chbs chan<- []byte, cher chan<- error) {
 	req, err := http.NewRequest(http.MethodGet, fmt.Sprintf("%s%s", constants.BaseURI, uri), nil)
 	if err != nil {

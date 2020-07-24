@@ -14,22 +14,31 @@ import (
 	"github.com/cmoscofian/meliponto/src/util/constants"
 )
 
+// RangeCommand is the implementation of the `range` command.
+// A punch command for handling full range of punches based
+// on a valid context config file.
 type RangeCommand Command
 
+// NewRangeCommand returns a new RangeCommand pointer setting up
+// it's valid flagset.
 func NewRangeCommand() *RangeCommand {
 	return &RangeCommand{
 		fs: rangeFlagSet,
 	}
 }
 
+// Name return the string name set for flagset command.
 func (d *RangeCommand) Name() string {
 	return d.fs.Name()
 }
 
+// Init parses all the valid flags of the command.
 func (d *RangeCommand) Init(args []string) error {
 	return d.fs.Parse(args)
 }
 
+// Run is responsible for the logic implementation of the command given a valid
+// configuration context.
 func (d *RangeCommand) Run(ctx *context.Configuration) error {
 	if d.fs.Parsed() {
 		chbs := make(chan []byte)

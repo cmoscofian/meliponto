@@ -12,6 +12,11 @@ import (
 	"github.com/cmoscofian/meliponto/src/service"
 )
 
+// HandleFetch is responsible for fetching all previous punches
+// already registered within the range provided from the system and
+// interactively prompts the user to take an intentional action to
+// proceed or to abort. It communicates with all other systems via
+// channels ([]byte channel and error channel).
 func HandleFetch(token string, start, end time.Time, chbs chan []byte, cher chan error) error {
 	var query model.Query
 	go service.GetPunchByDateRange(token, start, end, chbs, cher)

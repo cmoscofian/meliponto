@@ -9,6 +9,9 @@ import (
 	"github.com/cmoscofian/meliponto/src/util/constants"
 )
 
+// Login is responsible for building the request for the login given a valid context
+// and making the post request to the login URI.
+// It communicates with all the other sytems via channels ([]byte channel and error channel)
 func Login(ctx *context.Configuration, chbs chan<- []byte, cher chan<- error) {
 	password, err := util.GetPassword()
 	if err != nil {

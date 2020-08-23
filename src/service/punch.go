@@ -42,3 +42,15 @@ func PostPunch(token string, body []byte, chbs chan<- []byte, cher chan<- error)
 
 	Post(constants.SitePunchURI, headers, body, chbs, cher)
 }
+
+// DeletePunchByID is responsible for building the request for deleting a punch by it's ID
+// given a valid context and making the delete request to the punch URI.
+// It communicates with all the other systems via channels ([]byte channel and error channel)
+func DeletePunchByID(token, punchID string, chbs chan<- []byte, cher chan<- error) {
+	headers := map[string]string{
+		"cookie": fmt.Sprintf("qwert-external=%s", token),
+	}
+	uri := fmt.Sprintf("%s/%s", constants.SitePunchURI, punchID)
+
+	Delete(uri, headers, chbs, cher)
+}

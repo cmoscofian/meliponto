@@ -22,7 +22,7 @@ func HandleFetchToPunch(token string, start, end time.Time, chbs chan []byte, ch
 		return err
 	}
 
-	if query.Total > 0 {
+	if query.HasData() {
 		scanner := bufio.NewScanner(os.Stdin)
 		counter := 0
 

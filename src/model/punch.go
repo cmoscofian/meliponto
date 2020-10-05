@@ -58,9 +58,58 @@ type PunchResponse struct {
 	Response  *ResponseField  `json:"resposta,omitempty"`
 }
 
+// IsAllowance returns a boolean value indicating
+// whether or not the punch response type is of value
+// "abono".
+func (p *PunchResponse) IsAllowance() bool {
+	return p.Type == AllowancePunch
+}
+
+// IsRegular returns a boolean value indicating
+// whether or not the punch response type is of value
+// "addPunch".
+func (p *PunchResponse) IsRegular() bool {
+	return p.Type == RegularPunch
+}
+
 // The Query implements the response body structure
 // from fetching previous punches.
 type Query struct {
 	Total int              `json:"total"`
 	Data  []*PunchResponse `json:"data"`
+}
+
+// HasData returns a boolean value indicating
+// whether or not the query response has any
+// valid data.
+func (q *Query) HasData() bool {
+	return q.Total >= 0
+}
+
+// GetAllowance returns a slice of pointers to
+// PunchResponse entities that are of type
+// "abono".
+func (q *Query) GetAllowance() []*PunchResponse {
+	punches := make([]*PunchResponse, 0)
+	for _, p := range q.Data {
+		if p.IsAllowance() {
+			punches = append(punches, p)
+		}
+	}
+
+	return punches
+}
+
+// GetRegular returns a slice of pointers to
+// PunchResponse entities that are of type
+// "addPunch".
+func (q *Query) GetRegular() []*PunchResponse {
+	punches := make([]*PunchResponse, 0)
+	for _, p := range q.Data {
+		if p.IsRegular() {
+			punches = append(punches, p)
+		}
+	}
+
+	return punches
 }

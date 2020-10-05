@@ -21,6 +21,7 @@ func root(args []string) error {
 		command.NewSingleCommand(),
 		command.NewDayCommand(),
 		command.NewRangeCommand(),
+		command.NewReportCommand(),
 		command.NewVersionCommand(),
 	}
 

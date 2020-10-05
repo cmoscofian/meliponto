@@ -1,0 +1,9 @@
+USAGE: meliponto range [OPTIONS] <start-date> <end-date>
+
+DESCRIPTION: Generates a range report of your hours in the system, to be used for automatic approval (CSV)
+
+OPTIONS:
+	--token     	string  	When provided will be used to authenticate instead of prompting for your password [OPTIONAL]
+	--destination	string		Sets the path to save the csv file, otherwise will be used $HOME [OPTIONAL]
+	--gard				Generates a report only for gard punches [OPTIONAL]
+	--help				Displays the help message for the command

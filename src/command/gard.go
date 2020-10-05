@@ -70,7 +70,7 @@ func (d *GardCommand) Run(ctx *context.Configuration) error {
 				return err
 			}
 
-			if err := handlers.HandleFetch(token, start, end, chbs, cher); err != nil {
+			if err := handlers.HandleFetchToPunch(token, start, end, chbs, cher); err != nil {
 				return err
 			}
 
@@ -87,7 +87,7 @@ func (d *GardCommand) Run(ctx *context.Configuration) error {
 				return err
 			}
 
-			if err := handlers.HandleFetch(token, day, day, chbs, cher); err != nil {
+			if err := handlers.HandleFetchToPunch(token, day, day, chbs, cher); err != nil {
 				return err
 			}
 

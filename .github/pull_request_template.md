@@ -3,7 +3,7 @@
 ## What kind of change does this PR introduces? (Your branch should reflect it...)
 - [ ] Bugfix (Fixes an issue that does not affect users)
 - [ ] Hotfix (Fixes an issue that affect users)
-- [ ] Improvement (Improves upon an existing functionality or documentation)
+- [ ] Enhancement (Improves upon an existing functionality or documentation)
 - [ ] Feature (Creates a new feature)
 - [ ] Release (Packs the latest changes into a new release/ deployable version)
 

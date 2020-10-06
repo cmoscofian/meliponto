@@ -17,6 +17,7 @@ const (
 	NewConfigFileGeneratedError string = "Done! Remember to set your employee registration number next: meliponto config --re {your_re}"
 	NoCommandError              string = "You must provide a sub-command"
 	NoHomeFolderError           string = "User has no home folder setup, required for meliponto"
+	NoPreviousPunchesError      string = "There are no punches to report"
 	ParseConfigError            string = "Unable to parse the config, for your config file"
 	PastDateError               string = "Date provided must be in the past"
 	PastDateTimeError           string = "Date and Time provided must be in the past"

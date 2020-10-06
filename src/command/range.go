@@ -85,7 +85,7 @@ func (d *RangeCommand) Run(ctx *context.Configuration) error {
 			}
 		}
 
-		if err := handlers.HandleFetch(token, start, end, chbs, cher); err != nil {
+		if err := handlers.HandleFetchToPunch(token, start, end, chbs, cher); err != nil {
 			return err
 		}
 

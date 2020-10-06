@@ -64,7 +64,7 @@ func (d *DayCommand) Run(ctx *context.Configuration) error {
 			}
 		}
 
-		if err := handlers.HandleFetch(token, day, day, chbs, cher); err != nil {
+		if err := handlers.HandleFetchToPunch(token, day, day, chbs, cher); err != nil {
 			return err
 		}
 

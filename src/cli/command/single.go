@@ -3,12 +3,10 @@ package command
 import (
 	"errors"
 	"flag"
-	"fmt"
 
 	"github.com/cmoscofian/meliponto/src/cli/util/constant"
 	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
 	"github.com/cmoscofian/meliponto/src/shared/domain/repositories"
-	"github.com/cmoscofian/meliponto/src/shared/util"
 )
 
 // single is the implementation of the `single` command.
@@ -41,33 +39,6 @@ func (d *single) Init(args []string) error {
 // configuration context.
 func (d *single) Run(ctx *entities.Context) error {
 	if d.fs.Parsed() {
-		if help {
-			d.fs.Usage()
-			return nil
-		}
-
-		if date == "" {
-			return errors.New(constant.MissingDateFlagError)
-		}
-
-		if ptime == "" {
-			return errors.New(constant.MissingTimeFlagError)
-		}
-
-		day, err := util.ParseInputDateTime(date, ptime)
-		if err != nil {
-			return err
-		}
-
-		fmt.Println(day)
-
-		if token == "" {
-			token, err = d.ls.HandleLogin(ctx, "")
-			if err != nil {
-				return err
-			}
-		}
-
 		return nil
 	}
 

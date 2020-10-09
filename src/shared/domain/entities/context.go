@@ -9,11 +9,12 @@ import (
 // of the context passed along throghout
 // the app.
 type Context struct {
-	UserID    string        `json:"user_id"`
-	CompanyID string        `json:"company_id"`
-	Gard      *GardField    `json:"gard"`
-	Default   *DefaultField `json:"default"`
-	Holidays  []string      `json:"holidays"`
+	UserID    string            `json:"user_id"`
+	CompanyID string            `json:"company_id"`
+	Gard      *GardField        `json:"gard"`
+	Default   *DefaultField     `json:"default"`
+	Holidays  []string          `json:"holidays"`
+	Values    map[string]string `json:"-"`
 }
 
 // SetCompanyID updates the "CompanyID" field of the context entity

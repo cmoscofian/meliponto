@@ -39,7 +39,8 @@ type FetchPunchService interface {
 // the implementation of all methods required on the application
 // layer related to creating punches into the system.
 type CreatePunchService interface {
-	HandleCreateRegularPunch(*entities.Context, time.Time, []*entities.PunchRequest) ([]*entities.PunchRequest, error)
-	HandleCreateGardPunch(*entities.Context, time.Time, time.Time, time.Time, []*entities.PunchRequest) ([]*entities.PunchRequest, error)
-	HandleCreateOffTimePunch(*entities.Context, time.Time, time.Time, []*entities.PunchRequest) ([]*entities.PunchRequest, error)
+	// HandleCreatePunch(*entities.Context, *time.Time, *time.Time) error
+	// HandleCreateRegularPunch(*entities.Context, time.Time, []*entities.PunchRequest) []*entities.PunchRequest
+	// HandleCreateGardPunch(*entities.Context, time.Time, *time.Time, *time.Time, []*entities.PunchRequest) []*entities.PunchRequest
+	// HandleCreateOffTimePunch(*entities.Context, time.Time, time.Time, []*entities.PunchRequest) []*entities.PunchRequest
 }

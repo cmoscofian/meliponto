@@ -83,7 +83,7 @@ type Query struct {
 // whether or not the query response has any
 // valid data.
 func (q *Query) HasData() bool {
-	return q.Total >= 0
+	return q.Total > 0
 }
 
 // GetAllowance returns a slice of pointers to

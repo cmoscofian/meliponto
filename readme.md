@@ -8,8 +8,9 @@
 |_|   |_||_______||_______||___||___|    |_______||_|  |__|  |___|  |_______|
 
 ```
-![technology Go](https://img.shields.io/badge/technology-go-blue.svg)
+![technology-go](https://img.shields.io/badge/technology-go-blue.svg)
 ![release](https://img.shields.io/github/v/release/cmoscofian/meliponto)
+![go-report-card](https://goreportcard.com/badge/github.com/cmoscofian/meliponto)
 
 A simple CLI to facilitate punching hours into the ahgora system
 
@@ -32,6 +33,7 @@ meliponto config --re {your_employee_registration}
 ### _General_:
 - [`config`](#setup-configuration-command-config)
 - [`get-token`](#get-token-command-get-token)
+- [`report`](#report-command-report)
 - [`version`](#version-command-version)
 
 ### _Regular punches_:
@@ -73,6 +75,23 @@ Enter your password:
 **Response**:
 ```
 $ eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...
+```
+
+---
+### **Report Command** (*`report`*)
+![report](./.github/assets/report.svg)
+
+***PS**: You will be prompted for your **password***
+
+**Example**:
+```
+$ meliponto report --destination ~/report 01-09-20 30-09-20
+Enter your password:
+```
+
+**Response**:
+```
+$ Report generated successfully and saved at: /Users/username/report/16800_2020-09-01_2020-09-30.csv
 ```
 
 ---
@@ -250,9 +269,8 @@ This file resides on the folder `/usr/local/etc` and has the following structure
 # **TO-DO's**:
 - [x] ~~Create a functionality to retrieve punches~~
 - [x] ~~Create gard command to allow punch on-gard specifically~~
+- [x] ~~Iteractivelly asks about previous punches on the same day~~
+- [x] ~~Create a report command to generate a CSV to be approved by a superior~~
 - [ ] Delete a punch by ID
-- [ ] Iteractivelly asks if should delete old punch or skip punching the new or keeping both
 - [ ] Allow to pass a path to config file as a flag (flexible)
 - [ ] Approve a closed month
-- [ ] Create week command to allow punch a full-week at once
-- [ ] Create month command to allow punch a full-month at once

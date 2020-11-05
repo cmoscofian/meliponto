@@ -14,22 +14,31 @@ import (
 	"github.com/cmoscofian/meliponto/src/util/constants"
 )
 
+// GardCommand is the implementation of the `gard` command.
+// A punch command for handling full gard punches based
+// on a valid context config file.
 type GardCommand Command
 
+// NewGardCommand returns a new GardCommand pointer setting up
+// it's valid flagset.
 func NewGardCommand() *GardCommand {
 	return &GardCommand{
 		fs: gardFlagSet,
 	}
 }
 
+// Name return the string name set for flagset command.
 func (d *GardCommand) Name() string {
 	return d.fs.Name()
 }
 
+// Init parses all the valid flags of the command.
 func (d *GardCommand) Init(args []string) error {
 	return d.fs.Parse(args)
 }
 
+// Run is responsible for the logic implementation of the command given a valid
+// configuration context.
 func (d *GardCommand) Run(ctx *context.Configuration) error {
 	if d.fs.Parsed() {
 		chbs := make(chan []byte)
@@ -61,7 +70,7 @@ func (d *GardCommand) Run(ctx *context.Configuration) error {
 				return err
 			}
 
-			if err := handlers.HandleFetch(token, start, end, chbs, cher); err != nil {
+			if err := handlers.HandleFetchToPunch(token, start, end, chbs, cher); err != nil {
 				return err
 			}
 
@@ -78,7 +87,7 @@ func (d *GardCommand) Run(ctx *context.Configuration) error {
 				return err
 			}
 
-			if err := handlers.HandleFetch(token, day, day, chbs, cher); err != nil {
+			if err := handlers.HandleFetchToPunch(token, day, day, chbs, cher); err != nil {
 				return err
 			}
 

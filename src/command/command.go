@@ -8,15 +8,17 @@ import (
 	"github.com/cmoscofian/meliponto/src/util/constants"
 )
 
+// Commander is the interface that implements every possible command.
 type Commander interface {
 	Init(args []string) error
 	Run(ctx *context.Configuration) error
 	Name() string
 }
 
-// nolint
+// Command is a struct type that implements every Commander.
+// It has a single field fs (FlagSet) responsible for all valid flags to this command
 type Command struct {
-	fs *flag.FlagSet
+	fs *flag.FlagSet // nolint
 }
 
 var configFlagSet *flag.FlagSet
@@ -25,6 +27,7 @@ var gardFlagSet *flag.FlagSet
 var singleFlagSet *flag.FlagSet
 var dayFlagSet *flag.FlagSet
 var rangeFlagSet *flag.FlagSet
+var reportFlagSet *flag.FlagSet
 var versionFlagSet *flag.FlagSet
 
 var token string
@@ -38,6 +41,8 @@ var help bool
 
 var onGard string
 var offGard string
+
+var destination string
 
 var userID string
 var companyID string
@@ -55,6 +60,13 @@ func init() {
 	getTokenFlagSet = flag.NewFlagSet(constants.GetTokenKey, flag.ExitOnError)
 	getTokenFlagSet.BoolVar(&help, constants.HelpFlag, false, constants.HelpUsageMessage)
 	getTokenFlagSet.Usage = util.PrintUsage
+
+	reportFlagSet = flag.NewFlagSet(constants.ReportKey, flag.ExitOnError)
+	reportFlagSet.StringVar(&token, constants.TokenFlag, "", constants.TokenUsageMessage)
+	reportFlagSet.StringVar(&destination, constants.DestinationFlag, "", constants.DestinationUsageMessage)
+	reportFlagSet.BoolVar(&gard, constants.GardFlag, false, constants.GardUsageMessage)
+	reportFlagSet.BoolVar(&help, constants.HelpFlag, false, constants.HelpUsageMessage)
+	reportFlagSet.Usage = util.PrintUsage
 
 	versionFlagSet = flag.NewFlagSet(constants.VersionKey, flag.ExitOnError)
 
@@ -84,5 +96,6 @@ func init() {
 	gardFlagSet = flag.NewFlagSet(constants.GardKey, flag.ExitOnError)
 	gardFlagSet.StringVar(&token, constants.TokenFlag, "", constants.TokenUsageMessage)
 	gardFlagSet.BoolVar(&notFull, constants.NotFullGardFlag, false, constants.FullGardUsageMessage)
+	gardFlagSet.BoolVar(&help, constants.HelpFlag, false, constants.HelpUsageMessage)
 	gardFlagSet.Usage = util.PrintUsage
 }

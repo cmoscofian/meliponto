@@ -9,6 +9,9 @@ import (
 
 var docs string = "src/docs"
 
+// PrintUsage is responsible for printing a valid doc
+// message based upon the command provided. When invalid command
+// default message will be provided.
 func PrintUsage() {
 	var bs []byte
 	var err error

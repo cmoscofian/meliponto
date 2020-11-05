@@ -10,6 +10,8 @@ import (
 	"github.com/cmoscofian/meliponto/src/util/constants"
 )
 
+// HandleLogin returns a valid JWT token and an error provided a valid context.
+// It communicates with all the other sytems via channels ([]byte channel and error channel)
 func HandleLogin(ctx *context.Configuration, chbs chan []byte, cher chan error) (string, error) {
 	go service.Login(ctx, chbs, cher)
 

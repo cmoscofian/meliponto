@@ -1,4 +1,4 @@
-APP_VERSION=0.0.1
+APP_VERSION=0.0.0
 DOC_PATH=src/docs
 CONFIG_PATH=/usr/local/etc
 BUILD_PATH=bin/meliponto
@@ -12,6 +12,7 @@ fmt:
 lint:
 	@echo "### Linting the source code ###"
 	@golangci-lint run
+	@golint ./...
 
 .PHONY: vet
 vet:
@@ -29,7 +30,7 @@ clean:
 	@rm -rf bin
 
 .PHONY: pre-commit
-pre-commit: fmt lint vet test clean
+pre-commit: clean fmt lint vet test
 
 .PHONY: copy-config
 copy-config:

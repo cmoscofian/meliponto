@@ -3,14 +3,14 @@ package usecase
 import (
 	"time"
 
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
 	"github.com/cmoscofian/meliponto/src/shared/util/constant"
 )
 
 type custom struct{}
 
-func (u *custom) Get(ctx *entities.Context, date time.Time) []*entities.PunchRequest {
-	punches := make([]*entities.PunchRequest, 0)
+func (u *custom) Get(ctx *entity.Context, date time.Time) []*entity.PunchRequest {
+	punches := make([]*entity.PunchRequest, 0)
 
 	var message string = "Outros"
 
@@ -18,15 +18,15 @@ func (u *custom) Get(ctx *entities.Context, date time.Time) []*entities.PunchReq
 		message = v
 	}
 
-	custom := &entities.PunchRequest{
+	custom := &entity.PunchRequest{
 		Date:          date.Format(constant.DateLayout),
 		Allowance:     nil,
 		Justification: "outros",
 		Message:       message,
-		Punch: &entities.PunchField{
+		Punch: &entity.PunchField{
 			Time: date.Format(constant.TimeLayout),
 		},
-		Type: entities.RegularPunch,
+		Type: entity.RegularPunch,
 	}
 
 	punches = append(punches, custom)

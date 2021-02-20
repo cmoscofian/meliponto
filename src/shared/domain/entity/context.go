@@ -1,4 +1,4 @@
-package entities
+package entity
 
 import (
 	"encoding/json"
@@ -31,6 +31,19 @@ func (c *Context) SetCompanyID(companyID string, w io.Writer) error {
 func (c *Context) SetUserID(userID string, w io.Writer) error {
 	c.UserID = userID
 	return c.update(w)
+}
+
+// SetValue sets a string value on the context to be used across
+// the entire transaction.
+func (c *Context) SetValue(key, value string) {
+	c.Values[key] = value
+}
+
+// GetValue retrieves a string value set on the context
+// transaction.
+func (c Context) GetValue(key string) string {
+	value := c.Values[key]
+	return value
 }
 
 func (c *Context) update(w io.Writer) error {

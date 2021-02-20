@@ -3,19 +3,19 @@ package usecase
 import (
 	"time"
 
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
 	"github.com/cmoscofian/meliponto/src/shared/util/constant"
 )
 
 type gardSaturday struct{}
 
-func (u *gardSaturday) Get(ctx *entities.Context, date time.Time) []*entities.PunchRequest {
-	punches := make([]*entities.PunchRequest, 0)
+func (u *gardSaturday) Get(ctx *entity.Context, date time.Time) []*entity.PunchRequest {
+	punches := make([]*entity.PunchRequest, 0)
 
 	for _, h := range ctx.Gard.Hours.Saturday {
-		punch := &entities.PunchRequest{
+		punch := &entity.PunchRequest{
 			Date: date.Format(constant.DateLayout),
-			Allowance: &entities.AllowanceField{
+			Allowance: &entity.AllowanceField{
 				Begin:  h.Start,
 				End:    h.End,
 				Period: "especifico",
@@ -24,7 +24,7 @@ func (u *gardSaturday) Get(ctx *entities.Context, date time.Time) []*entities.Pu
 			Justification: "outros",
 			Message:       ctx.Gard.Messages.Default,
 			Punch:         nil,
-			Type:          entities.AllowancePunch,
+			Type:          entity.AllowancePunch,
 		}
 
 		punches = append(punches, punch)

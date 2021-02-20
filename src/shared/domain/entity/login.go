@@ -1,4 +1,4 @@
-package entities
+package entity
 
 // The LoginRequest implements the request body structure
 // for login into from the Ahgora system.

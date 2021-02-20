@@ -4,11 +4,11 @@ import (
 	"time"
 
 	"github.com/cmoscofian/meliponto/src/shared/chain/domain"
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
 )
 
 type chainContext struct {
-	context   *entities.Context
+	context   *entity.Context
 	date      time.Time
 	startDate *time.Time
 	endDate   *time.Time
@@ -17,7 +17,7 @@ type chainContext struct {
 	force     bool
 }
 
-func (c *chainContext) GetContext() *entities.Context {
+func (c *chainContext) GetContext() *entity.Context {
 	return c.context
 }
 
@@ -64,7 +64,7 @@ func NewChainContext() domain.ContextBuilder {
 // the logic for setting the Context entity on the
 // chain's context.
 // It returns a pointer to the ChainContextBuilder type.
-func (c *chainContextBuilder) SetContext(ctx *entities.Context) domain.ContextBuilder {
+func (c *chainContextBuilder) SetContext(ctx *entity.Context) domain.ContextBuilder {
 	c.ctx.context = ctx
 	return c
 }

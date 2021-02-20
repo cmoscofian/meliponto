@@ -3,13 +3,13 @@ package util
 import (
 	"time"
 
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
 )
 
 // GetDefaultMessage returns a valid string message. If message provided
 // is empty it will check the datetime and return an adequate WorkStart or WorkEnd
 // message.
-func GetDefaultMessage(ctx *entities.Context, message string, datetime time.Time) string {
+func GetDefaultMessage(ctx *entity.Context, message string, datetime time.Time) string {
 	if message == "" {
 		if datetime.Hour() <= 12 {
 			return ctx.Default.Messages.WorkStart

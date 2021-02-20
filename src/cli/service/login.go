@@ -4,19 +4,19 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
-	"github.com/cmoscofian/meliponto/src/shared/domain/repositories"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
+	"github.com/cmoscofian/meliponto/src/shared/domain/repository"
 	"github.com/cmoscofian/meliponto/src/shared/util/constant"
 )
 
 type login struct {
-	lc repositories.LoginClient
+	lc repository.LoginClient
 }
 
 // NewLogin returns an implementation of the
 // Login service given a valid LoginClient implementation
 // of the communication layer.
-func NewLogin(lc repositories.LoginClient) repositories.LoginService {
+func NewLogin(lc repository.LoginClient) repository.LoginService {
 	if lc == nil {
 		panic(fmt.Sprintf(constant.ClientError, "login"))
 	}
@@ -28,15 +28,15 @@ func NewLogin(lc repositories.LoginClient) repositories.LoginService {
 // responsible for all the application layer logic
 // regarding authentication given a valid
 // context and password.
-func (l *login) HandleLogin(ctx *entities.Context, password string) (string, error) {
-	req := &entities.LoginRequest{
+func (l login) HandleLogin(ctx *entity.Context, password []byte) (string, error) {
+	req := &entity.LoginRequest{
 		Empresa:   ctx.CompanyID,
 		Matricula: ctx.UserID,
 		Origin:    "portal",
-		Senha:     password,
+		Senha:     string(password),
 	}
 
-	resp, err := l.lc.Login(ctx, req)
+	resp, err := l.lc.Login(req)
 	if err != nil {
 		return "", err
 	}

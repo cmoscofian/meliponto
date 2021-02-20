@@ -7,7 +7,7 @@ import (
 	"path"
 )
 
-var docs string = "src/docs"
+var docs string = "src/cli/doc"
 
 // PrintUsage is responsible for printing a valid doc
 // message based upon the command provided. When invalid command

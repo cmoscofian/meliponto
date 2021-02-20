@@ -5,40 +5,50 @@ import (
 	"flag"
 
 	"github.com/cmoscofian/meliponto/src/cli/util/constant"
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
-	"github.com/cmoscofian/meliponto/src/shared/domain/repositories"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
+	"github.com/cmoscofian/meliponto/src/shared/domain/repository"
 )
 
 // single is the implementation of the `single` command.
 // A punch command for handling a single punch.
 type single struct {
-	fs *flag.FlagSet
-	ls repositories.LoginService
+	fs       *flag.FlagSet
+	injected bool
+	ls       repository.LoginService
 }
 
 // NewSingle returns a new SingleCommand pointer setting up
 // it's valid flagset.
-func NewSingle(ls repositories.LoginService) Command {
+func NewSingle() Command {
 	return &single{
-		fs: singleFlagSet,
-		ls: ls,
+		fs:       singleFlagSet,
+		injected: false,
 	}
 }
 
-// Name return the string name set for flagset command.
-func (d *single) Name() string {
-	return d.fs.Name()
+// Match returns a bool evaluating if the given
+// option matches this particular command.
+func (s *single) Match(option string) bool {
+	return s.fs.Name() == option
 }
 
-// Init parses all the valid flags of the command.
-func (d *single) Init(args []string) error {
-	return d.fs.Parse(args)
+// Parse evaluates and parses all given flags and
+// arguments. It returns an error when unable to
+// to parse all given arguments
+func (s *single) Parse(args []string) error {
+	return s.fs.Parse(args)
 }
 
-// Run is responsible for the logic implementation of the command given a valid
-// configuration context.
-func (d *single) Run(ctx *entities.Context) error {
-	if d.fs.Parsed() {
+// Inject handles injecting all required dependencies
+// for this particular command.
+func (s *single) Inject() {
+	s.injected = true
+}
+
+// Run is responsible for the logic implementation of the
+// command given a valid configuration context.
+func (s *single) Run(ctx *entity.Context) error {
+	if s.fs.Parsed() {
 		return nil
 	}
 

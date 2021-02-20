@@ -1,4 +1,4 @@
-package entities
+package entity
 
 // The ErrorResponse implements the default error
 // response body structure from the Ahgora system.

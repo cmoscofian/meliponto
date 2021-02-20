@@ -1,46 +1,57 @@
 package command
 
 import (
-	"bytes"
 	"errors"
 	"flag"
 	"fmt"
+	"os"
 
 	"github.com/cmoscofian/meliponto/src/cli/context"
 	"github.com/cmoscofian/meliponto/src/cli/util/constant"
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
 )
 
 // config is the implementation of the `config` command.
 // A general purpose command for handling updates to the config file
 // from the command line.
 type config struct {
-	fs *flag.FlagSet
+	fs       *flag.FlagSet
+	injected bool
 }
 
 // NewConfig returns a new ConfigCommand pointer setting up
 // it's valid flagset.
 func NewConfig() Command {
 	return &config{
-		fs: configFlagSet,
+		fs:       configFlagSet,
+		injected: false,
 	}
 }
 
-// Name return the string name set for flagset command.
-func (d *config) Name() string {
-	return d.fs.Name()
+// Match returns a bool evaluating if the given
+// option matches this particular command.
+func (c config) Match(option string) bool {
+	return c.fs.Name() == option
 }
 
-// Init parses all the valid flags of the command.
-func (d *config) Init(args []string) error {
-	return d.fs.Parse(args)
+// Parse evaluates and parses all given flags and
+// arguments. It returns an error when unable to
+// to parse all given arguments
+func (c config) Parse(args []string) error {
+	return c.fs.Parse(args)
 }
 
-// Run is responsible for the logic implementation of the command given a valid
-// configuration context.
-func (d *config) Run(ctx *entities.Context) error {
+// Inject handles injecting all required dependencies
+// for this particular command.
+func (c *config) Inject() {
+	c.injected = true
+}
+
+// Run is responsible for the logic implementation of the
+// command given a valid configuration context.
+func (c config) Run(ctx *entity.Context) error {
 	if help {
-		d.fs.Usage()
+		c.fs.Usage()
 		return nil
 	}
 
@@ -53,15 +64,21 @@ func (d *config) Run(ctx *entities.Context) error {
 		return nil
 	}
 
+	file, err := os.OpenFile(context.ConfigPath, os.O_WRONLY, os.ModePerm)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
 	if userID != "" {
-		if err := ctx.SetUserID(userID, bytes.NewBuffer([]byte("1"))); err != nil {
+		if err := ctx.SetUserID(userID, file); err != nil {
 			return err
 		}
 		fmt.Print(constant.ConfigUpdatedSuccessful)
 	}
 
 	if companyID != "" {
-		if err := ctx.SetCompanyID(companyID, bytes.NewBuffer([]byte("1"))); err != nil {
+		if err := ctx.SetCompanyID(companyID, file); err != nil {
 			return err
 		}
 		fmt.Print(constant.ConfigUpdatedSuccessful)

@@ -4,14 +4,16 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
 )
 
 // version is the implementation of the `version` command.
 // A general purpose command for fetching the version of current
 // app installed.
 type version struct {
-	fs *flag.FlagSet
+	fs       *flag.FlagSet
+	injected bool
+	ver      string
 }
 
 var (
@@ -22,23 +24,33 @@ var (
 // it's valid flagset.
 func NewVersion() Command {
 	return &version{
-		fs: versionFlagSet,
+		fs:  versionFlagSet,
+		ver: currentVersion,
 	}
 }
 
-// Name return the string name set for flagset command.
-func (d *version) Name() string {
-	return d.fs.Name()
+// Match returns a bool evaluating if the given
+// option matches this particular command.
+func (v version) Match(option string) bool {
+	return v.fs.Name() == option
 }
 
-// Init parses all the valid flags of the command.
-func (d *version) Init(args []string) error {
-	return d.fs.Parse(args)
+// Parse evaluates and parses all given flags and
+// arguments. It returns an error when unable to
+// to parse all given arguments
+func (v version) Parse(args []string) error {
+	return v.fs.Parse(args)
 }
 
-// Run is responsible for the logic implementation of the command given a valid
-// configuration context.
-func (d *version) Run(ctx *entities.Context) error {
-	fmt.Printf("meliponto version v%s\n", currentVersion)
+// Inject handles injecting all required dependencies
+// for this particular command.
+func (v *version) Inject() {
+	v.injected = true
+}
+
+// Run is responsible for the logic implementation of the
+// command given a valid configuration context.
+func (v version) Run(ctx *entity.Context) error {
+	fmt.Println("meliponto version v" + v.ver)
 	return nil
 }

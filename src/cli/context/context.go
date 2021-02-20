@@ -9,7 +9,7 @@ import (
 	"path"
 
 	"github.com/cmoscofian/meliponto/src/cli/util/constant"
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
 )
 
 var dirname string = path.Join("/", "usr", "local", "etc")
@@ -24,7 +24,7 @@ var ConfigPath string = path.Join(dirname, filename)
 // based upon a valid config file, if unable or corrupited
 // it will generate a new config file based on a default and
 // exit with status 1.
-func New() *entities.Context {
+func New() *entity.Context {
 	content, err := ioutil.ReadFile(ConfigPath)
 	if err != nil {
 		fmt.Println(constant.CorruptedConfigFileError)
@@ -32,7 +32,7 @@ func New() *entities.Context {
 		os.Exit(1)
 	}
 
-	context := new(entities.Context)
+	context := new(entity.Context)
 
 	err = json.Unmarshal(content, context)
 	if err != nil {
@@ -40,6 +40,8 @@ func New() *entities.Context {
 		GenerateConfig()
 		os.Exit(1)
 	}
+
+	context.Values = map[string]string{}
 
 	return context
 }
@@ -65,34 +67,34 @@ func GenerateConfig() {
 	fmt.Fprintln(os.Stderr, constant.NewConfigFileGeneratedError)
 }
 
-func createDefaultConfig() *entities.Context {
-	return &entities.Context{
+func createDefaultConfig() *entity.Context {
+	return &entity.Context{
 		CompanyID: "a382748",
-		Default: &entities.DefaultField{
-			Hours: &entities.DefaultFieldConfig{
+		Default: &entity.DefaultField{
+			Hours: &entity.DefaultFieldConfig{
 				WorkStart:  "09:00",
 				LunchStart: "12:00",
 				LunchEnd:   "13:00",
 				WorkEnd:    "18:48",
 			},
-			Messages: &entities.DefaultFieldConfig{
+			Messages: &entity.DefaultFieldConfig{
 				WorkStart:  "Início de jornada",
 				LunchStart: "Saída para almoço",
 				LunchEnd:   "Retorno do almoço",
 				WorkEnd:    "Final de jornada",
 			},
 		},
-		Gard: &entities.GardField{
-			Messages: &entities.GardFieldMessages{
+		Gard: &entity.GardField{
+			Messages: &entity.GardFieldMessages{
 				Default: "Guardia",
 			},
-			Hours: &entities.GardFieldHours{
-				Begin:    []*entities.GardFieldHoursRange{{Start: "18:48", End: "24:00"}},
-				Finish:   []*entities.GardFieldHoursRange{{Start: "05:00", End: "09:00"}},
-				Holiday:  []*entities.GardFieldHoursRange{{Start: "05:00", End: "18:00"}},
-				Saturday: []*entities.GardFieldHoursRange{{Start: "05:00", End: "18:00"}},
-				Sunday:   []*entities.GardFieldHoursRange{{Start: "07:00", End: "23:00"}},
-				Weekday:  []*entities.GardFieldHoursRange{{Start: "00:00", End: "02:00"}, {Start: "05:00", End: "09:00"}, {Start: "18:48", End: "24:00"}},
+			Hours: &entity.GardFieldHours{
+				Begin:    []*entity.GardFieldHoursRange{{Start: "18:48", End: "24:00"}},
+				Finish:   []*entity.GardFieldHoursRange{{Start: "05:00", End: "09:00"}},
+				Holiday:  []*entity.GardFieldHoursRange{{Start: "05:00", End: "18:00"}},
+				Saturday: []*entity.GardFieldHoursRange{{Start: "05:00", End: "18:00"}},
+				Sunday:   []*entity.GardFieldHoursRange{{Start: "07:00", End: "23:00"}},
+				Weekday:  []*entity.GardFieldHoursRange{{Start: "00:00", End: "02:00"}, {Start: "05:00", End: "09:00"}, {Start: "18:48", End: "24:00"}},
 			},
 		},
 		Holidays: []string{

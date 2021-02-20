@@ -1,4 +1,4 @@
-package entities
+package entity
 
 // The PunchType is a custom type all valid type values
 // for the punch request and response type field.
@@ -106,11 +106,11 @@ type QueryPunchResponse struct {
 // whether or not the query response has any
 // valid data.
 func (q *QueryPunchResponse) HasData() bool {
-	return q.Total >= 0 && len(q.Data) >= 0
+	return q.Total > 0 && len(q.Data) > 0
 }
 
 // GetAllowance returns a slice of pointers to
-// PunchResponse entities that are of type
+// PunchResponse entity that are of type
 // "abono".
 func (q *QueryPunchResponse) GetAllowance() []*PunchResponse {
 	punches := make([]*PunchResponse, 0)
@@ -124,7 +124,7 @@ func (q *QueryPunchResponse) GetAllowance() []*PunchResponse {
 }
 
 // GetRegular returns a slice of pointers to
-// PunchResponse entities that are of type
+// PunchResponse entity that are of type
 // "addPunch".
 func (q *QueryPunchResponse) GetRegular() []*PunchResponse {
 	punches := make([]*PunchResponse, 0)

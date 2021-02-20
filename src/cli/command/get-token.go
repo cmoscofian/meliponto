@@ -4,49 +4,75 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"time"
 
-	"github.com/cmoscofian/meliponto/src/cli/util/constant"
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
-	"github.com/cmoscofian/meliponto/src/shared/domain/repositories"
+	"github.com/cmoscofian/meliponto/src/cli/service"
+	cliutil "github.com/cmoscofian/meliponto/src/cli/util"
+	cliconstant "github.com/cmoscofian/meliponto/src/cli/util/constant"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
+	"github.com/cmoscofian/meliponto/src/shared/domain/repository"
+	"github.com/cmoscofian/meliponto/src/shared/infrastructure/restclient"
+	"github.com/cmoscofian/meliponto/src/shared/repositories/rest"
+	"github.com/cmoscofian/meliponto/src/shared/util/constant"
 )
 
 // getToken is the implementation of the `get-token` command.
 // A general purpose command for fetching a valid JWT token from the
 // for authenticating from the command line
 type getToken struct {
-	fs *flag.FlagSet
-	ls repositories.LoginService
+	fs       *flag.FlagSet
+	injected bool
+	ls       repository.LoginService
 }
 
 // NewGetToken returns a new GetTokenCommand pointer setting up
 // it's valid flagset.
-func NewGetToken(ls repositories.LoginService) Command {
+func NewGetToken() Command {
 	return &getToken{
-		fs: getTokenFlagSet,
-		ls: ls,
+		fs:       getTokenFlagSet,
+		injected: false,
 	}
 }
 
-// Name return the string name set for flagset command.
-func (d *getToken) Name() string {
-	return d.fs.Name()
+// Match returns a bool evaluating if the given
+// option matches this particular command.
+func (g getToken) Match(option string) bool {
+	return g.fs.Name() == option
 }
 
-// Init parses all the valid flags of the command.
-func (d *getToken) Init(args []string) error {
-	return d.fs.Parse(args)
+// Parse evaluates and parses all given flags and
+// arguments. It returns an error when unable to
+// to parse all given arguments
+func (g getToken) Parse(args []string) error {
+	return g.fs.Parse(args)
 }
 
-// Run is responsible for the logic implementation of the command given a valid
-// configuration context.
-func (d *getToken) Run(ctx *entities.Context) error {
-	if d.fs.Parsed() {
+// Inject handles injecting all required dependencies
+// for this particular command.
+func (g *getToken) Inject() {
+	defaultClient := restclient.NewRestClientPool(constant.BaseURI, nil, time.Minute)
+	loginClient := rest.NewLogin(defaultClient)
+	loginService := service.NewLogin(loginClient)
+
+	g.injected = true
+	g.ls = loginService
+}
+
+// Run is responsible for the logic implementation of the
+// command given a valid configuration context.
+func (g getToken) Run(ctx *entity.Context) error {
+	if g.fs.Parsed() && g.injected {
 		if help {
-			d.fs.Usage()
+			g.fs.Usage()
 			return nil
 		}
 
-		token, err := d.ls.HandleLogin(ctx, "")
+		password, err := cliutil.GetPassword()
+		if err != nil {
+			return err
+		}
+
+		token, err = g.ls.HandleLogin(ctx, password)
 		if err != nil {
 			return err
 		}
@@ -56,5 +82,5 @@ func (d *getToken) Run(ctx *entities.Context) error {
 		return nil
 	}
 
-	return errors.New(constant.FlagsUnparsedError)
+	return errors.New(cliconstant.FlagsUnparsedError)
 }

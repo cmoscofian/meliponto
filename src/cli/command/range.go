@@ -5,41 +5,51 @@ import (
 	"flag"
 
 	"github.com/cmoscofian/meliponto/src/cli/util/constant"
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
-	"github.com/cmoscofian/meliponto/src/shared/domain/repositories"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
+	"github.com/cmoscofian/meliponto/src/shared/domain/repository"
 )
 
 // rangeCommand is the implementation of the `range` command.
 // A punch command for handling full range of punches based
 // on a valid context config file.
 type rangeCommand struct {
-	fs *flag.FlagSet
-	ls repositories.LoginService
+	fs       *flag.FlagSet
+	injected bool
+	ls       repository.LoginService
 }
 
 // NewRange returns a new RangeCommand pointer setting up
 // it's valid flagset.
-func NewRange(ls repositories.LoginService) Command {
+func NewRange() Command {
 	return &rangeCommand{
-		fs: rangeFlagSet,
-		ls: ls,
+		fs:       rangeFlagSet,
+		injected: false,
 	}
 }
 
-// Name return the string name set for flagset command.
-func (d *rangeCommand) Name() string {
-	return d.fs.Name()
+// Match returns a bool evaluating if the given
+// option matches this particular command.
+func (r rangeCommand) Match(option string) bool {
+	return r.fs.Name() == option
 }
 
-// Init parses all the valid flags of the command.
-func (d *rangeCommand) Init(args []string) error {
-	return d.fs.Parse(args)
+// Parse evaluates and parses all given flags and
+// arguments. It returns an error when unable to
+// to parse all given arguments
+func (r rangeCommand) Parse(args []string) error {
+	return r.fs.Parse(args)
 }
 
-// Run is responsible for the logic implementation of the command given a valid
-// configuration context.
-func (d *rangeCommand) Run(ctx *entities.Context) error {
-	if d.fs.Parsed() {
+// Inject handles injecting all required dependencies
+// for this particular command.
+func (r *rangeCommand) Inject() {
+	r.injected = true
+}
+
+// Run is responsible for the logic implementation of the
+// command given a valid configuration context.
+func (r rangeCommand) Run(ctx *entity.Context) error {
+	if r.fs.Parsed() {
 		return nil
 	}
 

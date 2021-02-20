@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
 	"github.com/cmoscofian/meliponto/src/shared/util/constant"
 )
 
@@ -72,7 +72,7 @@ func (r *restClientPool) Get(uri string, headers map[string]string, object inter
 	}
 
 	if resp.StatusCode/100 != 2 {
-		er := new(entities.ErrorResponse)
+		er := new(entity.ErrorResponse)
 		message := string(bs)
 		if err := json.Unmarshal(bs, er); err == nil {
 			message = er.Message
@@ -125,7 +125,7 @@ func (r *restClientPool) Post(uri string, headers map[string]string, body, objec
 	}
 
 	if resp.StatusCode/100 != 2 {
-		er := new(entities.ErrorResponse)
+		er := new(entity.ErrorResponse)
 		message := string(rbs)
 		if err := json.Unmarshal(rbs, er); err == nil {
 			message = er.Message
@@ -140,9 +140,10 @@ func (r *restClientPool) Post(uri string, headers map[string]string, body, objec
 	return nil
 }
 
-// Put is the default implementation of a PUT Request based on a default client and
-// given valid uri, headers and body.
-// It communicates with all the other sytems via channels ([]byte channel and error channel)
+// Put is the default implementation of a PUT Request based on a restClient and
+// given valid uri, headers, body and object.
+// The "object" param must be a pointer of an entity that matches the expected response.
+// Returns an error
 func (r *restClientPool) Put(uri string, headers map[string]string, body, object interface{}) error {
 	bbs, err := json.Marshal(body)
 	if err != nil {
@@ -177,7 +178,7 @@ func (r *restClientPool) Put(uri string, headers map[string]string, body, object
 	}
 
 	if resp.StatusCode/100 != 2 {
-		er := new(entities.ErrorResponse)
+		er := new(entity.ErrorResponse)
 		message := string(rbs)
 		if err := json.Unmarshal(rbs, er); err == nil {
 			message = er.Message
@@ -224,7 +225,7 @@ func (r *restClientPool) Delete(uri string, headers map[string]string, object in
 	}
 
 	if resp.StatusCode/100 != 2 {
-		er := new(entities.ErrorResponse)
+		er := new(entity.ErrorResponse)
 		message := string(bs)
 		if err := json.Unmarshal(bs, er); err != nil {
 			message = er.Message

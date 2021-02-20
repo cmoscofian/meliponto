@@ -5,41 +5,51 @@ import (
 	"flag"
 
 	"github.com/cmoscofian/meliponto/src/cli/util/constant"
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
-	"github.com/cmoscofian/meliponto/src/shared/domain/repositories"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
+	"github.com/cmoscofian/meliponto/src/shared/domain/repository"
 )
 
 // report is the implementation of the `report`` command.
 // A general purpose command for generating a report with information
 // regarding the range passed as paramethers.
 type report struct {
-	fs *flag.FlagSet
-	ls repositories.LoginService
+	fs       *flag.FlagSet
+	injected bool
+	ls       repository.LoginService
 }
 
 // NewReport returns a new ReportCommand pointer setting up
 // it's valid flagset.
-func NewReport(ls repositories.LoginService) Command {
+func NewReport() Command {
 	return &report{
-		fs: reportFlagSet,
-		ls: ls,
+		fs:       reportFlagSet,
+		injected: false,
 	}
 }
 
-// Name return the string name set for flagset command.
-func (d *report) Name() string {
-	return d.fs.Name()
+// Match returns a bool evaluating if the given
+// option matches this particular command.
+func (r report) Match(option string) bool {
+	return r.fs.Name() == option
 }
 
-// Init parses all the valid flags of the command.
-func (d *report) Init(args []string) error {
-	return d.fs.Parse(args)
+// Parse evaluates and parses all given flags and
+// arguments. It returns an error when unable to
+// to parse all given arguments
+func (r report) Parse(args []string) error {
+	return r.fs.Parse(args)
 }
 
-// Run is responsible for the logic implementation of the command given a valid
-// configuration context.
-func (d *report) Run(ctx *entities.Context) error {
-	if d.fs.Parsed() {
+// Inject handles injecting all required dependencies
+// for this particular command.
+func (r *report) Inject() {
+	r.injected = true
+}
+
+// Run is responsible for the logic implementation of the
+// command given a valid configuration context.
+func (r report) Run(ctx *entity.Context) error {
+	if r.fs.Parsed() {
 		return nil
 	}
 

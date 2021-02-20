@@ -5,14 +5,15 @@ import (
 
 	"github.com/cmoscofian/meliponto/src/cli/util"
 	"github.com/cmoscofian/meliponto/src/cli/util/constant"
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
 )
 
 // Command is the interface that implements every possible command.
 type Command interface {
-	Init([]string) error
-	Run(*entities.Context) error
-	Name() string
+	Match(string) bool
+	Parse([]string) error
+	Inject()
+	Run(*entity.Context) error
 }
 
 var configFlagSet *flag.FlagSet

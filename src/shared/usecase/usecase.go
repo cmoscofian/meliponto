@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/cmoscofian/meliponto/src/shared/chain/domain"
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
 )
 
 // The Key type is a custom string type
@@ -34,9 +34,9 @@ var usecases = map[Key]domain.Usecase{
 	Custom:       &custom{},
 }
 
-// Get returns a slice of pointers to PunchRequest entities and
+// Get returns a slice of pointers to PunchRequest entity and
 // an error given a valid context and date.
 // It is used to retrieve the usecases.
-func (u Key) Get(ctx *entities.Context, date time.Time) []*entities.PunchRequest {
+func (u Key) Get(ctx *entity.Context, date time.Time) []*entity.PunchRequest {
 	return usecases[u].Get(ctx, date)
 }

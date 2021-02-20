@@ -3,14 +3,14 @@ package domain
 import (
 	"time"
 
-	"github.com/cmoscofian/meliponto/src/shared/domain/entities"
+	"github.com/cmoscofian/meliponto/src/shared/domain/entity"
 )
 
 // The Context type is an interface that implements
 // all methods required for evaluations on the
 // "chain-of-responsability".
 type Context interface {
-	GetContext() *entities.Context
+	GetContext() *entity.Context
 	GetDate() time.Time
 	GetStartDate() time.Time
 	GetEndDate() time.Time
@@ -23,7 +23,7 @@ type Context interface {
 // all methods required for building the context to be passed
 // on to the "chain-of-responsability".
 type ContextBuilder interface {
-	SetContext(*entities.Context) ContextBuilder
+	SetContext(*entity.Context) ContextBuilder
 	SetDate(time.Time) ContextBuilder
 	SetStartDate(*time.Time) ContextBuilder
 	SetEndDate(*time.Time) ContextBuilder

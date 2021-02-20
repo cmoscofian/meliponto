@@ -5,31 +5,41 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/cmoscofian/meliponto/src/cli/command"
 	"github.com/cmoscofian/meliponto/src/cli/context"
 	"github.com/cmoscofian/meliponto/src/cli/util"
-	"github.com/cmoscofian/meliponto/src/cli/util/constant"
+	cliconstant "github.com/cmoscofian/meliponto/src/cli/util/constant"
 )
 
 func root(args []string) error {
 	ctx := context.New()
-	cmds := buildCommands()
-
-	if len(args) < 1 {
-		return errors.New(constant.NoCommandError)
+	cmds := []command.Command{
+		command.NewConfig(),
+		command.NewDay(),
+		command.NewGard(),
+		command.NewGetToken(),
+		command.NewRange(),
+		command.NewReport(),
+		command.NewSingle(),
+		command.NewVersion(),
 	}
 
-	option := args[0]
+	if len(args) < 1 {
+		return errors.New(cliconstant.NoCommandError)
+	}
 
 	for _, cmd := range cmds {
-		if cmd.Name() == option {
-			if err := cmd.Init(os.Args[2:]); err != nil {
+		if cmd.Match(args[0]) {
+			if err := cmd.Parse(os.Args[2:]); err != nil {
 				return err
 			}
+			cmd.Inject()
+
 			return cmd.Run(ctx)
 		}
 	}
 
-	return fmt.Errorf(constant.InvalidCommandError, option)
+	return fmt.Errorf(cliconstant.InvalidCommandError, args[0])
 }
 
 func main() {

@@ -26,7 +26,7 @@ func HandleLogin(ctx *context.Configuration, chbs chan []byte, cher chan error) 
 			return login.Token, nil
 		}
 		
-		if login.Validation == true {
+		if login.Validation {
 			return login.Token, errors.New("Captcha is required. You must login on browser first")
 		}
 

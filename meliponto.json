@@ -1,86 +1,86 @@
 {
-    "user_id": "",
-    "company_id": "a382748",
-    "gard": {
-        "messages": {
-            "default": "Guardia"
-        },
-        "hours": {
-            "begin": [
-                {
-                    "start": "18:48",
-                    "end": "24:00"
-                }
-            ],
-            "weekday": [
-                {
-                    "start": "00:00",
-                    "end": "02:00"
-                },
-                {
-                    "start": "05:00",
-                    "end": "09:00"
-                },
-                {
-                    "start": "18:48",
-                    "end": "24:00"
-                }
-            ],
-            "saturday": [
-                {
-                    "start": "05:00",
-                    "end": "18:00"
-                }
-            ],
-            "sunday": [
-                {
-                    "start": "07:00",
-                    "end": "23:00"
-                }
-            ],
-            "holiday": [
-                {
-                    "start": "05:00",
-                    "end": "18:00"
-                }
-            ],
-            "finish": [
-                {
-                    "start": "05:00",
-                    "end": "09:00"
-                }
-            ]
-        }
-    },
-    "default": {
-        "messages": {
-            "work_start": "Início de jornada",
-            "lunch_start": "Saída para almoço",
-            "lunch_end": "Retorno do almoço",
-            "work_end": "Final de jornada"
-        },
-        "hours": {
-            "work_start": "09:00",
-            "lunch_start": "12:00",
-            "lunch_end": "13:00",
-            "work_end": "18:48"
-        }
-    },
-    "holidays": [
-        "01-01-20",
-        "25-01-20",
-        "24-02-20",
-        "25-02-20",
-        "10-04-20",
-        "21-04-20",
-        "01-05-20",
-        "11-06-20",
-        "09-07-20",
-        "07-09-20",
-        "12-10-20",
-        "02-11-20",
-        "15-11-20",
-        "20-11-20",
-        "25-12-20"
-    ]
+	"user_id": "",
+	"company_id": "a382748",
+	"gard": {
+		"messages": {
+			"default": "Guardia"
+		},
+		"hours": {
+			"begin": [
+				{
+					"start": "18:48",
+					"end": "24:00"
+				}
+			],
+			"weekday": [
+				{
+					"start": "00:00",
+					"end": "02:00"
+				},
+				{
+					"start": "05:00",
+					"end": "09:00"
+				},
+				{
+					"start": "18:48",
+					"end": "24:00"
+				}
+			],
+			"saturday": [
+				{
+					"start": "05:00",
+					"end": "18:00"
+				}
+			],
+			"sunday": [
+				{
+					"start": "07:00",
+					"end": "23:00"
+				}
+			],
+			"holiday": [
+				{
+					"start": "05:00",
+					"end": "18:00"
+				}
+			],
+			"finish": [
+				{
+					"start": "05:00",
+					"end": "09:00"
+				}
+			]
+		}
+	},
+	"default": {
+		"messages": {
+			"work_start": "Início de jornada",
+			"lunch_start": "Saída para almoço",
+			"lunch_end": "Retorno do almoço",
+			"work_end": "Final de jornada"
+		},
+		"hours": {
+			"work_start": "09:00",
+			"lunch_start": "12:00",
+			"lunch_end": "13:00",
+			"work_end": "18:48"
+		}
+	},
+	"holidays": [
+		"01-01-21",
+		"25-01-21",
+		"02-04-21",
+		"15-02-21",
+		"16-02-21",
+		"21-04-21",
+		"01-05-21",
+		"03-06-21",
+		"09-07-21",
+		"07-09-21",
+		"12-10-21",
+		"02-11-21",
+		"15-11-21",
+		"20-11-21",
+		"25-12-21"
+	]
 }

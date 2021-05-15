@@ -8,6 +8,7 @@ const (
 	InvalidCommandError         string = "Invalid sub-command: %s"
 	InvalidDateError            string = "Unable to parse date provided (format: \"d-m-yy\")"
 	InvalidLoginError           string = "Unable to login, check your RE on config and the plataform!"
+	LoginValidationError        string = "Captcha is required. You must login on browser first"
 	MissingDateError            string = "Date argument must be provided (format: \"d-m-yy\")"
 	MissingDateFlagError        string = "Flag --date must be provided with a valid past date (format: \"d-m-yy\")"
 	MissingDatesError           string = "Start and finish date arguments must be provided (format: \"d-m-yy\")"

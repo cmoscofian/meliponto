@@ -5,6 +5,7 @@ DESCRIPTION: A simple CLI to facilitate punching hours into the ahgora system, i
 COMMANDS:
     config      Sets up the provided flag information to the config file.
     get-token   Retrieves a valid JWT token and displays to stdout.
+    report      Generates a standard CSV report of your regular punched hours waiting for approval.
     version     Displays the current version of the app installed.
     single      Punches a single entrance in the ahgora system with the date and time provided by the flags.
     day         Punches full entrances for the day argument, multiples punches done asynchronously therefore stdout output order may vary.
